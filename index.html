@@ -183,6 +183,78 @@
       .folder-color-5 .folder-tab { background: linear-gradient(135deg, #f5e0e0, #ebd0d0); }
       .folder-color-5 .folder-tab::before { background: linear-gradient(135deg, #f5e0e0, #ebd0d0); }
 
+      /* Category tabs */
+      .category-tab {
+        background: white;
+        color: #b76e79;
+        border: 2px solid #f9e4e4;
+      }
+      .category-tab.active {
+        background: linear-gradient(135deg, #b76e79, #e8a0a0);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 4px 15px rgba(183, 110, 121, 0.35);
+      }
+      .category-tab:not(.active):hover {
+        background: #fde8e8;
+        border-color: #e8a0a0;
+      }
+
+      /* Folder group transition */
+      .folder-group {
+        animation: fadeInGroup 0.4s ease;
+      }
+      .folder-group.hidden {
+        display: none;
+      }
+      @keyframes fadeInGroup {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Checklist styles */
+      .checklist-checkbox {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        border: 2px solid #e8a0a0;
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .checklist-checkbox:checked {
+        background: linear-gradient(135deg, #b76e79, #e8a0a0);
+        border-color: #b76e79;
+      }
+      .checklist-checkbox:checked::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 1px;
+        width: 6px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+      .checklist-item:has(.checklist-checkbox:checked) {
+        background: #fde8e8;
+        border-color: #e8a0a0;
+      }
+      .checklist-item:has(.checklist-checkbox:checked) span {
+        text-decoration: line-through;
+        color: #b76e79;
+        opacity: 0.7;
+      }
+      .checklist-item:has(.checklist-checkbox:checked) p {
+        text-decoration: line-through;
+        opacity: 0.5;
+      }
+
       /* Number badge */
       .folder-number {
         width: 36px;
@@ -239,421 +311,636 @@
       </div>
     </section>
 
+    <!-- Category Tabs -->
+    <section class="relative z-10 max-w-2xl mx-auto px-4 pt-8">
+      <div class="flex justify-center flex-wrap gap-3 sm:gap-4" id="categoryTabs">
+        <button
+          class="category-tab active font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          data-category="monthsary"
+          onclick="switchCategory('monthsary')"
+        >
+          Monthsary Letters
+        </button>
+        <button
+          class="category-tab font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          data-category="girlfriends"
+          onclick="switchCategory('girlfriends')"
+        >
+          Girlfriends Day
+        </button>
+        <button
+          class="category-tab font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          data-category="anniversary"
+          onclick="switchCategory('anniversary')"
+        >
+          Anniversary Letters
+        </button>
+        <button
+          class="category-tab font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          data-category="bucketlist"
+          onclick="switchCategory('bucketlist')"
+        >
+          Anniversary Bucketlist
+        </button>
+        <button
+          class="category-tab font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          data-category="other"
+          onclick="switchCategory('other')"
+        >
+          Other Letters
+        </button>
+      </div>
+    </section>
+
     <!-- Folders Section -->
     <section class="relative z-10 max-w-2xl mx-auto px-4 pb-32 pt-8">
-      <div class="space-y-6" id="foldersContainer">
 
-        <!-- Folder 1: 1st Letter -->
-        <div class="folder folder-color-1" data-delay="0">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">1</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  1st Letter
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"For Boss Ayen"</p>
+      <!-- Monthsary Letters Group -->
+      <div class="folder-group" id="group-monthsary">
+        <div class="space-y-6">
+
+          <!-- 1st Monthsary -->
+          <div class="folder folder-color-1" data-delay="0">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">1</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    1st Monthsary
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 1st Monthsary"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  1st Month
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                The Beginning
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
-          </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                The very first letter I wrote for you. Where it all started.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Folder 2: Liham -->
-        <div class="folder folder-color-2" data-delay="50">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">2</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  Liham
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"For Boss Ayen"</p>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  Our first month together. The start of something beautiful.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                Liham
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
           </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                Another letter from the heart, written just for you.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
 
-        <!-- Folder 3: 1st Girlfriends Day -->
-        <div class="folder folder-color-3" data-delay="100">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">3</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  1st Girlfriends Day
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"For My Boss"</p>
+          <!-- 2nd Monthsary -->
+          <div class="folder folder-color-2" data-delay="50">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">2</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    2nd Monthsary
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 2nd Monthsary lovelove"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  2nd Month
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                Girlfriends Day
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
-          </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                Celebrating our very first Girlfriends Day together.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Folder 4: 1st Monthsary -->
-        <div class="folder folder-color-4" data-delay="150">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">4</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  1st Monthsary
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 1st Monthsary"</p>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  Two months of love, laughter, and growing together.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                1st Month
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
           </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                Our first month together. The start of something beautiful.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
 
-        <!-- Folder 5: 2nd Monthsary -->
-        <div class="folder folder-color-5" data-delay="200">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">5</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  2nd Monthsary
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 2nd Monthsary lovelove"</p>
+          <!-- 3rd Monthsary -->
+          <div class="folder folder-color-3" data-delay="100">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">3</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    3rd Monthsary
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 3rd Monthsary lovelove"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  3rd Month
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                2nd Month
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
-          </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                Two months of love, laughter, and growing together.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Folder 6: 3rd Monthsary -->
-        <div class="folder folder-color-1" data-delay="250">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">6</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  3rd Monthsary
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 3rd Monthsary lovelove"</p>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  Three months deep, and falling for you more each day.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                3rd Month
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
           </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                Three months deep, and falling for you more each day.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
 
-        <!-- Folder 7: 4th Monthsary -->
-        <div class="folder folder-color-2" data-delay="300">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">7</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  4th Monthsary
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 4th Monthsary, My Love"</p>
+          <!-- 4th Monthsary -->
+          <div class="folder folder-color-4" data-delay="150">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">4</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    4th Monthsary
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 4th Monthsary, My Love"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  4th Month
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                4th Month
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
-          </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                Four months of us. Every moment with you is a gift.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Folder 8: 5th Monthsary -->
-        <div class="folder folder-color-3" data-delay="350">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">8</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  5th Monthsary
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 5th Monthsary &amp; Happy 21st Birthday"</p>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  Four months of us. Every moment with you is a gift.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                5th + Birthday
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
           </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                A double celebration &mdash; five months of love and your special day.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
 
-        <!-- Folder 9: 6th Monthsary -->
-        <div class="folder folder-color-4" data-delay="400">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">9</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  6th Monthsary
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 6th Monthsary lovelove"</p>
+          <!-- 5th Monthsary -->
+          <div class="folder folder-color-5" data-delay="200">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">5</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    5th Monthsary
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 5th Monthsary &amp; Happy 21st Birthday"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  5th + Birthday
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                6th Month
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
-          </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                Half a year of us. Still feels like a dream.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Folder 10: 7th Monthsary -->
-        <div class="folder folder-color-5" data-delay="450">
-          <div
-            class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-            onclick="toggleDrawer(this)"
-          >
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="folder-number">10</div>
-              <div class="min-w-0">
-                <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
-                  7th Monthsary
-                </h3>
-                <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 7th Monthsary lovelove"</p>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  A double celebration &mdash; five months of love and your special day.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
               </div>
             </div>
-            <div class="flex items-center gap-3 flex-shrink-0">
-              <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                7th Month
-              </span>
-              <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
           </div>
-          <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
-            <div class="p-5">
-              <p class="text-wine/60 text-sm leading-relaxed mb-4">
-                Seven months and counting. My love for you only grows.
-              </p>
-              <a
-                href="#"
-                class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                target="_blank"
-                rel="noopener"
-              >
-                Open Letter &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
 
+          <!-- 6th Monthsary -->
+          <div class="folder folder-color-1" data-delay="250">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">6</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    6th Monthsary
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 6th Monthsary lovelove"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  6th Month
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  Half a year of us. Still feels like a dream.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7th Monthsary -->
+          <div class="folder folder-color-2" data-delay="300">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">7</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    7th Monthsary
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 7th Monthsary lovelove"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  7th Month
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  Seven months and counting. My love for you only grows.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
+
+      <!-- Other Letters Group (hidden by default) -->
+      <div class="folder-group hidden" id="group-other">
+        <div class="space-y-6">
+
+          <!-- 1st Letter -->
+          <div class="folder folder-color-3" data-delay="0">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">1</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    1st Letter
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"For Boss Ayen"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  The Beginning
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  The very first letter I wrote for you. Where it all started.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Liham -->
+          <div class="folder folder-color-4" data-delay="50">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">2</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    Liham
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"For Boss Ayen"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  Liham
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  Another letter from the heart, written just for you.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Girlfriends Day Group (hidden by default) -->
+      <div class="folder-group hidden" id="group-girlfriends">
+        <div class="space-y-6">
+
+          <!-- 1st Girlfriends Day -->
+          <div class="folder folder-color-5" data-delay="0">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">1</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    1st Girlfriends Day
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"For My Boss"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  Girlfriends Day
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  Celebrating our very first Girlfriends Day together.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Anniversary Letters Group (hidden by default) -->
+      <div class="folder-group hidden" id="group-anniversary">
+        <div class="space-y-6">
+
+          <!-- 1st Anniversary -->
+          <div class="folder folder-color-1" data-delay="0">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">1</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    1st Anniversary
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">"Happy 1st Anniversary lovelove"</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  1 Year
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <p class="text-wine/60 text-sm leading-relaxed mb-4">
+                  One whole year of us. 365 days of love, and this is only the beginning.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Anniversary Bucketlist Group (hidden by default) -->
+      <div class="folder-group hidden" id="group-bucketlist">
+        <div class="space-y-4">
+
+          <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush">
+            <h3 class="font-script text-2xl text-rosegold mb-1">Our Anniversary Bucketlist</h3>
+            <p class="text-wine/50 text-sm mb-5">Things we want to do and experience together. Check them off as we go!</p>
+
+            <div class="space-y-3" id="bucketlist">
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Watch the sunrise together</span>
+                  <p class="text-wine/40 text-xs mt-0.5">Wake up early and share that quiet, golden moment.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Go on a road trip</span>
+                  <p class="text-wine/40 text-xs mt-0.5">No set destination, just us and the open road.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Cook a meal together</span>
+                  <p class="text-wine/40 text-xs mt-0.5">Pick a recipe we've never tried and make it side by side.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Have a picnic at the park</span>
+                  <p class="text-wine/40 text-xs mt-0.5">Bring food, a blanket, and just enjoy each other's company.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Watch the stars at night</span>
+                  <p class="text-wine/40 text-xs mt-0.5">Find a quiet spot, lay down, and look up together.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Write letters to each other</span>
+                  <p class="text-wine/40 text-xs mt-0.5">Handwritten letters to open on our next anniversary.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Take lots of photos together</span>
+                  <p class="text-wine/40 text-xs mt-0.5">A whole day of capturing memories everywhere we go.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Go to the beach</span>
+                  <p class="text-wine/40 text-xs mt-0.5">Walk along the shore, feel the waves, and hold hands.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Movie marathon at home</span>
+                  <p class="text-wine/40 text-xs mt-0.5">Pick a series, get snacks, and stay in all day.</p>
+                </div>
+              </label>
+
+              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
+                <input type="checkbox" class="checklist-checkbox mt-0.5" />
+                <div>
+                  <span class="font-body font-semibold text-wine text-sm">Dance together to our song</span>
+                  <p class="text-wine/40 text-xs mt-0.5">Slow dance in the living room, just the two of us.</p>
+                </div>
+              </label>
+
+            </div>
+
+            <!-- Progress bar -->
+            <div class="mt-6 pt-4 border-t border-blush/50">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-wine/60 text-xs font-semibold uppercase tracking-wider">Progress</span>
+                <span class="text-rosegold text-xs font-bold" id="bucketlistProgress">0 / 10</span>
+              </div>
+              <div class="w-full h-2.5 bg-blush/50 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-rosegold to-rose rounded-full transition-all duration-500 ease-out" id="bucketlistBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </section>
 
     <!-- Footer -->
@@ -697,8 +984,9 @@
         var chevron = tabEl.querySelector(".chevron");
         var isOpen = drawer.classList.contains("open");
 
-        // Close all other drawers
-        document.querySelectorAll(".drawer-content.open").forEach(function (d) {
+        // Close all other drawers in the same group
+        var group = folder.closest(".folder-group");
+        group.querySelectorAll(".drawer-content.open").forEach(function (d) {
           if (d !== drawer) {
             d.classList.remove("open");
             d.parentElement
@@ -715,6 +1003,51 @@
           drawer.classList.add("open");
           chevron.classList.add("rotated");
         }
+      }
+
+      // Switch between category tabs
+      function switchCategory(category) {
+        // Update tab active states
+        document.querySelectorAll(".category-tab").forEach(function (tab) {
+          if (tab.dataset.category === category) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+
+        // Close all open drawers
+        document.querySelectorAll(".drawer-content.open").forEach(function (d) {
+          d.classList.remove("open");
+          d.parentElement.querySelector(".chevron").classList.remove("rotated");
+        });
+
+        // Show/hide groups
+        document.querySelectorAll(".folder-group").forEach(function (group) {
+          group.classList.add("hidden");
+        });
+
+        var activeGroup = document.getElementById("group-" + category);
+        activeGroup.classList.remove("hidden");
+
+        // Re-trigger folder entrance animations
+        activeGroup.querySelectorAll(".folder").forEach(function (folder) {
+          folder.classList.remove("visible");
+        });
+        setTimeout(function () {
+          animateFoldersInGroup(activeGroup);
+        }, 50);
+      }
+
+      // Animate folders within a specific group
+      function animateFoldersInGroup(group) {
+        var folders = group.querySelectorAll(".folder");
+        folders.forEach(function (folder, index) {
+          var delay = index * 60;
+          setTimeout(function () {
+            folder.classList.add("visible");
+          }, delay);
+        });
       }
 
       // Scroll-triggered folder entrance animations
@@ -738,6 +1071,44 @@
         folders.forEach(function (folder) {
           observer.observe(folder);
         });
+      })();
+
+      // Bucketlist progress tracking with localStorage
+      (function initBucketlist() {
+        var checkboxes = document.querySelectorAll(".checklist-checkbox");
+        var total = checkboxes.length;
+        var storageKey = "bucketlist-checked";
+
+        // Load saved state
+        var saved = {};
+        try {
+          saved = JSON.parse(localStorage.getItem(storageKey)) || {};
+        } catch (e) {
+          saved = {};
+        }
+
+        checkboxes.forEach(function (cb, index) {
+          if (saved[index]) {
+            cb.checked = true;
+          }
+          cb.addEventListener("change", function () {
+            saved[index] = cb.checked;
+            localStorage.setItem(storageKey, JSON.stringify(saved));
+            updateProgress();
+          });
+        });
+
+        function updateProgress() {
+          var checked = document.querySelectorAll(
+            ".checklist-checkbox:checked",
+          ).length;
+          var progressEl = document.getElementById("bucketlistProgress");
+          var barEl = document.getElementById("bucketlistBar");
+          if (progressEl) progressEl.textContent = checked + " / " + total;
+          if (barEl) barEl.style.width = (checked / total) * 100 + "%";
+        }
+
+        updateProgress();
       })();
     </script>
   </body>
