@@ -255,6 +255,110 @@
         opacity: 0.5;
       }
 
+      /* Gallery grid */
+      .gallery-grid {
+        columns: 2;
+        column-gap: 12px;
+      }
+      @media (min-width: 640px) {
+        .gallery-grid {
+          columns: 3;
+          column-gap: 16px;
+        }
+      }
+      .gallery-card {
+        break-inside: avoid;
+        margin-bottom: 12px;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(183, 110, 121, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      @media (min-width: 640px) {
+        .gallery-card {
+          margin-bottom: 16px;
+        }
+      }
+      .gallery-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(183, 110, 121, 0.3);
+      }
+      .gallery-card img {
+        width: 100%;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+      .gallery-card:hover img {
+        transform: scale(1.05);
+      }
+      .gallery-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 8px 12px;
+        background: linear-gradient(to top, rgba(114, 47, 55, 0.7), transparent);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 500;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .gallery-card:hover .gallery-caption {
+        opacity: 1;
+      }
+
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .lightbox.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+      .lightbox.open img {
+        transform: scale(1);
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 24px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s ease;
+      }
+      .lightbox-close:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
       /* Number badge */
       .folder-number {
         width: 36px;
@@ -348,6 +452,13 @@
           onclick="switchCategory('other')"
         >
           Other Letters
+        </button>
+        <button
+          class="category-tab font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          data-category="gallery"
+          onclick="switchCategory('gallery')"
+        >
+          Our Gallery
         </button>
       </div>
     </section>
@@ -941,6 +1052,84 @@
         </div>
       </div>
 
+      <!-- Gallery Group (hidden by default) -->
+      <div class="folder-group hidden" id="group-gallery">
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush">
+          <h3 class="font-script text-2xl text-rosegold mb-1">Our Moments Together</h3>
+          <p class="text-wine/50 text-sm mb-6">A collection of our favorite memories. Click any photo to view it full size.</p>
+
+          <div class="gallery-grid">
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x500/f9e4e4/b76e79?text=Photo+1" alt="Photo 1" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x350/fde8e8/b76e79?text=Photo+2" alt="Photo 2" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x450/f5e0e0/b76e79?text=Photo+3" alt="Photo 3" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x400/f0dde4/b76e79?text=Photo+4" alt="Photo 4" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x520/f9e4e4/b76e79?text=Photo+5" alt="Photo 5" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x380/fde8e8/b76e79?text=Photo+6" alt="Photo 6" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x460/f5e0e0/b76e79?text=Photo+7" alt="Photo 7" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x350/f0dde4/b76e79?text=Photo+8" alt="Photo 8" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x500/f9e4e4/b76e79?text=Photo+9" alt="Photo 9" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x420/fde8e8/b76e79?text=Photo+10" alt="Photo 10" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x380/f5e0e0/b76e79?text=Photo+11" alt="Photo 11" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img src="https://placehold.co/400x450/f0dde4/b76e79?text=Photo+12" alt="Photo 12" />
+              <div class="gallery-caption font-body">Our memory</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Lightbox Modal -->
+      <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+        <img id="lightboxImg" src="" alt="Full size photo" />
+      </div>
+
     </section>
 
     <!-- Footer -->
@@ -1072,6 +1261,33 @@
           observer.observe(folder);
         });
       })();
+
+      // Lightbox for gallery
+      function openLightbox(card) {
+        var img = card.querySelector("img");
+        var lightbox = document.getElementById("lightbox");
+        var lightboxImg = document.getElementById("lightboxImg");
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLightbox(e) {
+        var lightbox = document.getElementById("lightbox");
+        if (e.target === lightbox || e.target.classList.contains("lightbox-close")) {
+          lightbox.classList.remove("open");
+          document.body.style.overflow = "";
+        }
+      }
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          var lightbox = document.getElementById("lightbox");
+          lightbox.classList.remove("open");
+          document.body.style.overflow = "";
+        }
+      });
 
       // Bucketlist progress tracking with localStorage
       (function initBucketlist() {
