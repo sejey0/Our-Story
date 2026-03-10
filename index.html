@@ -938,104 +938,42 @@
 
       <!-- Anniversary Bucketlist Group (hidden by default) -->
       <div class="folder-group hidden" id="group-bucketlist">
-        <div class="space-y-4">
+        <div class="space-y-6">
 
-          <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush">
-            <h3 class="font-script text-2xl text-rosegold mb-1">Our Anniversary Bucketlist</h3>
-            <p class="text-wine/50 text-sm mb-5">Things we want to do and experience together. Check them off as we go!</p>
-
-            <div class="space-y-3" id="bucketlist">
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Watch the sunrise together</span>
-                  <p class="text-wine/40 text-xs mt-0.5">Wake up early and share that quiet, golden moment.</p>
+          <!-- 2026 Bucketlist -->
+          <div class="folder folder-color-1" data-delay="0">
+            <div
+              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+              onclick="toggleDrawer(this)"
+            >
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="folder-number">1</div>
+                <div class="min-w-0">
+                  <h3 class="font-body font-bold text-wine text-base sm:text-lg truncate">
+                    2026 Bucketlist
+                  </h3>
+                  <p class="text-wine/50 text-xs sm:text-sm truncate">2026</p>
                 </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Go on a road trip</span>
-                  <p class="text-wine/40 text-xs mt-0.5">No set destination, just us and the open road.</p>
-                </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Cook a meal together</span>
-                  <p class="text-wine/40 text-xs mt-0.5">Pick a recipe we've never tried and make it side by side.</p>
-                </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Have a picnic at the park</span>
-                  <p class="text-wine/40 text-xs mt-0.5">Bring food, a blanket, and just enjoy each other's company.</p>
-                </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Watch the stars at night</span>
-                  <p class="text-wine/40 text-xs mt-0.5">Find a quiet spot, lay down, and look up together.</p>
-                </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Write letters to each other</span>
-                  <p class="text-wine/40 text-xs mt-0.5">Handwritten letters to open on our next anniversary.</p>
-                </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Take lots of photos together</span>
-                  <p class="text-wine/40 text-xs mt-0.5">A whole day of capturing memories everywhere we go.</p>
-                </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Go to the beach</span>
-                  <p class="text-wine/40 text-xs mt-0.5">Walk along the shore, feel the waves, and hold hands.</p>
-                </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Movie marathon at home</span>
-                  <p class="text-wine/40 text-xs mt-0.5">Pick a series, get snacks, and stay in all day.</p>
-                </div>
-              </label>
-
-              <label class="checklist-item flex items-start gap-3 p-3 rounded-xl border border-blush/60 bg-cream/50 cursor-pointer transition-all duration-300 hover:border-rosegold/40 hover:shadow-sm">
-                <input type="checkbox" class="checklist-checkbox mt-0.5" />
-                <div>
-                  <span class="font-body font-semibold text-wine text-sm">Dance together to our song</span>
-                  <p class="text-wine/40 text-xs mt-0.5">Slow dance in the living room, just the two of us.</p>
-                </div>
-              </label>
-
-            </div>
-
-            <!-- Progress bar -->
-            <div class="mt-6 pt-4 border-t border-blush/50">
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-wine/60 text-xs font-semibold uppercase tracking-wider">Progress</span>
-                <span class="text-rosegold text-xs font-bold" id="bucketlistProgress">0 / 10</span>
               </div>
-              <div class="w-full h-2.5 bg-blush/50 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-rosegold to-rose rounded-full transition-all duration-500 ease-out" id="bucketlistBar" style="width: 0%"></div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                  2026
+                </span>
+                <svg class="chevron w-5 h-5 text-wine/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner">
+              <div class="p-5">
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
               </div>
             </div>
           </div>
@@ -1320,43 +1258,6 @@
         }
       });
 
-      // Bucketlist progress tracking with localStorage
-      (function initBucketlist() {
-        var checkboxes = document.querySelectorAll(".checklist-checkbox");
-        var total = checkboxes.length;
-        var storageKey = "bucketlist-checked";
-
-        // Load saved state
-        var saved = {};
-        try {
-          saved = JSON.parse(localStorage.getItem(storageKey)) || {};
-        } catch (e) {
-          saved = {};
-        }
-
-        checkboxes.forEach(function (cb, index) {
-          if (saved[index]) {
-            cb.checked = true;
-          }
-          cb.addEventListener("change", function () {
-            saved[index] = cb.checked;
-            localStorage.setItem(storageKey, JSON.stringify(saved));
-            updateProgress();
-          });
-        });
-
-        function updateProgress() {
-          var checked = document.querySelectorAll(
-            ".checklist-checkbox:checked",
-          ).length;
-          var progressEl = document.getElementById("bucketlistProgress");
-          var barEl = document.getElementById("bucketlistBar");
-          if (progressEl) progressEl.textContent = checked + " / " + total;
-          if (barEl) barEl.style.width = (checked / total) * 100 + "%";
-        }
-
-        updateProgress();
-      })();
     </script>
   </body>
 </html>
