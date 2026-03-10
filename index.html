@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Love Letters | A Journey Together</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cream: "#FFF8F0",
+              blush: "#F9E4E4",
+              rose: "#E8A0A0",
+              rosegold: "#B76E79",
+              wine: "#722F37",
+              petal: "#FDE8E8",
+            },
+            fontFamily: {
+              script: ['"Great Vibes"', "cursive"],
+              body: ['"Quicksand"', "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Quicksand", sans-serif;
+        background-color: #fff8f0;
+      }
+
+      /* Floating hearts background */
+      .hearts-bg {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .hearts-bg .heart {
+        position: absolute;
+        bottom: -20px;
+        font-size: 1.2rem;
+        opacity: 0;
+        animation: floatHeart linear infinite;
+      }
+      @keyframes floatHeart {
+        0% {
+          opacity: 0;
+          transform: translateY(0) rotate(0deg) scale(0.5);
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.3;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-100vh) rotate(360deg) scale(1);
+        }
+      }
+
+      /* Timeline line */
+      .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(to bottom, #f9e4e4, #b76e79, #f9e4e4);
+        transform: translateX(-50%);
+      }
+      @media (max-width: 768px) {
+        .timeline-line {
+          left: 24px;
+        }
+      }
+
+      /* Timeline dot */
+      .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 2rem;
+        width: 16px;
+        height: 16px;
+        background: #b76e79;
+        border: 3px solid #fff8f0;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 0 0 3px #b76e79;
+        z-index: 2;
+      }
+      @media (max-width: 768px) {
+        .timeline-dot {
+          left: 24px;
+        }
+      }
+
+      /* Card entrance animations */
+      .timeline-card {
+        opacity: 0;
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .timeline-card.from-left {
+        transform: translateX(-60px);
+      }
+      .timeline-card.from-right {
+        transform: translateX(60px);
+      }
+      .timeline-card.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* Visit button glow */
+      .btn-visit {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+      .btn-visit::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.6s ease,
+          height 0.6s ease;
+      }
+      .btn-visit:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+      .btn-visit:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(183, 110, 121, 0.4);
+      }
+
+      /* Hero sparkle */
+      .hero-section {
+        background: linear-gradient(
+          135deg,
+          #fff8f0 0%,
+          #fde8e8 50%,
+          #f9e4e4 100%
+        );
+      }
+
+      /* Pulse for timeline dots */
+      .timeline-dot::after {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        border: 2px solid #b76e79;
+        opacity: 0;
+        animation: pulse-ring 2s ease-out infinite;
+      }
+      @keyframes pulse-ring {
+        0% {
+          opacity: 0.6;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.6);
+        }
+      }
+
+      /* Card hover */
+      .card-wrapper:hover .card-inner {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(183, 110, 121, 0.15);
+      }
+      .card-inner {
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen relative">
+    <!-- Floating Hearts Background -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- Hero Section -->
+    <section
+      class="hero-section relative z-10 flex flex-col items-center justify-center min-h-[70vh] px-4 text-center"
+    >
+      <div class="mb-4">
+        <span class="text-6xl">&#128140;</span>
+      </div>
+      <h1
+        class="font-script text-5xl sm:text-7xl text-rosegold mb-4 drop-shadow-sm"
+      >
+        Our Love Letters
+      </h1>
+      <p
+        class="font-body text-lg sm:text-xl text-wine/70 max-w-xl leading-relaxed mb-8"
+      >
+        A collection of every letter, every word, and every moment I have poured
+        my heart into for you. Each one is a chapter of us.
+      </p>
+      <div class="animate-bounce mt-4">
+        <svg
+          class="w-8 h-8 text-rosegold mx-auto"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
+        </svg>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="relative z-10 max-w-5xl mx-auto px-4 pb-32 pt-16">
+      <div class="relative">
+        <!-- The vertical line -->
+        <div class="timeline-line hidden md:block"></div>
+        <div class="timeline-line block md:hidden"></div>
+
+        <!-- Entry 1: 1st Letter -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-end mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-left md:w-[45%] md:mr-auto md:pr-12 pl-16 md:pl-0"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >The Beginning</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  1st Letter
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "For Boss Ayen"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  The very first letter I wrote for you. Where it all started.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 2: Liham -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-start mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-right md:w-[45%] md:ml-auto md:pl-12 pl-16 md:pl-12"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >Liham</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  Liham
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "For Boss Ayen"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  Another letter from the heart, written just for you.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 3: 1st Girlfriends Day -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-end mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-left md:w-[45%] md:mr-auto md:pr-12 pl-16 md:pl-0"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >Girlfriends Day</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  1st Girlfriends Day
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "For My Boss"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  Celebrating our very first Girlfriends Day together.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 4: 1st Monthsary -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-start mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-right md:w-[45%] md:ml-auto md:pl-12 pl-16 md:pl-12"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >1st Month</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  1st Monthsary
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "Happy 1st Monthsary"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  Our first month together. The start of something beautiful.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 5: 2nd Monthsary -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-end mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-left md:w-[45%] md:mr-auto md:pr-12 pl-16 md:pl-0"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >2nd Month</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  2nd Monthsary
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "Happy 2nd Monthsary lovelove"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  Two months of love, laughter, and growing together.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 6: 3rd Monthsary -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-start mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-right md:w-[45%] md:ml-auto md:pl-12 pl-16 md:pl-12"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >3rd Month</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  3rd Monthsary
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "Happy 3rd Monthsary lovelove"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  Three months deep, and falling for you more each day.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 7: 4th Monthsary -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-end mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-left md:w-[45%] md:mr-auto md:pr-12 pl-16 md:pl-0"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >4th Month</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  4th Monthsary
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "Happy 4th Monthsary, My Love"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  Four months of us. Every moment with you is a gift.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 8: 5th Monthsary -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-start mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-right md:w-[45%] md:ml-auto md:pl-12 pl-16 md:pl-12"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >5th Month + Birthday</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  5th Monthsary
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "Happy 5th Monthsary &amp; Happy 21st Birthday"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  A double celebration — five months of love and your special
+                  day.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 9: 6th Monthsary -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-end mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-left md:w-[45%] md:mr-auto md:pr-12 pl-16 md:pl-0"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >6th Month</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  6th Monthsary
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "Happy 6th Monthsary lovelove"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  Half a year of us. Still feels like a dream.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entry 10: 7th Monthsary -->
+        <div
+          class="relative flex flex-col md:flex-row md:justify-start mb-16 md:mb-24"
+        >
+          <div class="timeline-dot"></div>
+          <div
+            class="timeline-card from-right md:w-[45%] md:ml-auto md:pl-12 pl-16 md:pl-12"
+          >
+            <div class="card-wrapper">
+              <div
+                class="card-inner bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blush"
+              >
+                <span
+                  class="inline-block bg-petal text-rosegold text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider"
+                  >7th Month</span
+                >
+                <h3 class="font-body font-bold text-xl text-wine mb-2">
+                  7th Monthsary
+                </h3>
+                <p class="text-wine/60 text-sm mb-1 font-semibold">
+                  "Happy 7th Monthsary lovelove"
+                </p>
+                <p class="text-wine/50 text-sm mb-5 leading-relaxed">
+                  Seven months and counting. My love for you only grows.
+                </p>
+                <a
+                  href="#"
+                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Letter &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="relative z-10 text-center py-12 bg-gradient-to-t from-blush/50 to-transparent"
+    >
+      <p class="font-script text-3xl text-rosegold mb-2">Forever Yours</p>
+      <p class="text-wine/40 text-sm font-body">
+        Made with all my love &hearts;
+      </p>
+    </footer>
+
+    <script>
+      // Floating hearts background
+      (function createHearts() {
+        const container = document.getElementById("heartsBg");
+        const heartSymbols = [
+          "\u2764",
+          "\u{1F497}",
+          "\u{1F496}",
+          "\u{1F495}",
+          "\u{1F49E}",
+        ];
+        for (let i = 0; i < 20; i++) {
+          const heart = document.createElement("span");
+          heart.classList.add("heart");
+          heart.textContent =
+            heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+          heart.style.left = Math.random() * 100 + "%";
+          heart.style.animationDuration = 8 + Math.random() * 12 + "s";
+          heart.style.animationDelay = Math.random() * 15 + "s";
+          heart.style.fontSize = 0.8 + Math.random() * 1 + "rem";
+          container.appendChild(heart);
+        }
+      })();
+
+      // Scroll-triggered card animations
+      (function animateCards() {
+        const cards = document.querySelectorAll(".timeline-card");
+        const observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 },
+        );
+
+        cards.forEach(function (card) {
+          observer.observe(card);
+        });
+      })();
+    </script>
+  </body>
+</html>
