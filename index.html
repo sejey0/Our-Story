@@ -1002,7 +1002,7 @@
           data-category="bucketlist"
           onclick="switchCategory('bucketlist')"
         >
-          Anniversary Bucketlist
+          Our Love Bucketlist
         </button>
         <button
           class="category-tab font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
@@ -1679,62 +1679,22 @@
         </div>
       </div>
 
-      <!-- Anniversary Bucketlist Group (hidden by default) -->
+      <!-- Our Love Bucketlist Group (hidden by default) -->
       <div class="folder-group hidden" id="group-bucketlist">
-        <div class="space-y-6">
-          <!-- 2026 Bucketlist -->
-          <div class="folder folder-color-1" data-delay="0">
-            <div
-              class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-              onclick="toggleDrawer(this)"
-            >
-              <div class="flex items-center gap-4 min-w-0">
-                <div class="folder-number">1</div>
-                <div class="min-w-0">
-                  <h3
-                    class="font-body font-bold text-wine text-base sm:text-lg truncate"
-                  >
-                    2026 Bucketlist
-                  </h3>
-                  <p class="text-wine/50 text-xs sm:text-sm truncate">2026</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-3 flex-shrink-0">
-                <span
-                  class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider"
-                >
-                  2026
-                </span>
-                <svg
-                  class="chevron w-5 h-5 text-wine/40"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div
-              class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
-            >
-              <div class="p-5">
-                <a
-                  href="#"
-                  class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Open Bucketlist &rarr;
-                </a>
-              </div>
-            </div>
-          </div>
+        <div
+          class="flex flex-col items-center justify-center py-16 text-center"
+        >
+          <h2 class="font-heading text-2xl sm:text-3xl text-wine mb-8">
+            Our Love Bucketlist
+          </h2>
+          <a
+            href="https://our-love-bucket-list.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-body font-semibold text-sm sm:text-base px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+          >
+            Open Our Love Bucketlist &rarr;
+          </a>
         </div>
       </div>
 
@@ -2619,12 +2579,7 @@
     <!-- Footer -->
     <footer
       class="relative z-10 text-center py-12 bg-gradient-to-t from-blush/50 to-transparent"
-    >
-      <p class="font-script text-3xl text-rosegold mb-2">Forever Yours</p>
-      <p class="text-wine/40 text-sm font-body">
-        Made with all my love &hearts;
-      </p>
-    </footer>
+    ></footer>
 
     <script>
       // Security gate - unlock with correct answer
