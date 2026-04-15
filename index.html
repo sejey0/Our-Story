@@ -438,6 +438,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 64px 16px 24px;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
@@ -447,8 +448,11 @@
         pointer-events: auto;
       }
       .lightbox img {
-        max-width: 90vw;
-        max-height: 85vh;
+        max-width: 92vw;
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
         border-radius: 12px;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         transform: scale(0.9);
@@ -458,24 +462,74 @@
         transform: scale(1);
       }
       .lightbox-close {
-        position: absolute;
-        top: 20px;
-        right: 24px;
+        position: fixed;
+        top: 16px;
+        right: 16px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.15);
-        border: none;
-        color: white;
-        font-size: 1.5rem;
+        background: #fff8f0;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        color: #722f37;
+        font-size: 1.6rem;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: background 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        z-index: 1002;
       }
       .lightbox-close:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: white;
+      }
+      .lightbox-back {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        border-radius: 9999px;
+        padding: 8px 14px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        background: #fff8f0;
+        color: #722f37;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        z-index: 1002;
+      }
+      .lightbox-back:hover {
+        background: white;
+      }
+      .lightbox-actions {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 1002;
+      }
+      .lightbox-action {
+        border: none;
+        border-radius: 9999px;
+        padding: 10px 18px;
+        background: linear-gradient(135deg, #b76e79, #e8a0a0);
+        color: white;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      }
+      .lightbox-action:hover {
+        transform: translateY(-1px);
       }
 
       /* Security Gate Overlay */
@@ -2836,9 +2890,17 @@
 
       <!-- Lightbox Modal -->
       <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-back" onclick="closeLightbox(event)">
+          &larr; Back
+        </button>
         <button class="lightbox-close" onclick="closeLightbox(event)">
           &times;
         </button>
+        <div class="lightbox-actions">
+          <button class="lightbox-action" onclick="closeLightbox(event)">
+            Close
+          </button>
+        </div>
         <img id="lightboxImg" src="" alt="Full size photo" />
       </div>
     </section>
@@ -3294,7 +3356,9 @@
         var lightbox = document.getElementById("lightbox");
         if (
           e.target === lightbox ||
-          e.target.classList.contains("lightbox-close")
+          e.target.classList.contains("lightbox-close") ||
+          e.target.classList.contains("lightbox-back") ||
+          e.target.classList.contains("lightbox-action")
         ) {
           lightbox.classList.remove("open");
           document.body.style.overflow = "";
