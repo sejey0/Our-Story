@@ -30,6 +30,16 @@
         },
       };
     </script>
+    <link
+      rel="preload"
+      as="image"
+      href="images/1st Image Together/1000019984.jpg"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="images/Bataan/2025/IMG_20251015_170052_999 (1) (1).jpg"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -49,7 +59,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-attachment: fixed;
+        background-attachment: scroll;
       }
 
       /* Floating hearts background */
@@ -3023,6 +3033,17 @@
     <footer
       class="relative z-10 text-center py-12 bg-gradient-to-t from-blush/50 to-transparent"
     ></footer>
+
+    <script>
+      document.querySelectorAll("img").forEach(function (img) {
+        if (!img.hasAttribute("loading")) {
+          img.loading = "lazy";
+        }
+        if (!img.hasAttribute("decoding")) {
+          img.decoding = "async";
+        }
+      });
+    </script>
 
     <script>
       // Security gate - unlock with correct answer
