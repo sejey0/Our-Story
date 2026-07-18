@@ -281,6 +281,25 @@
         background: #fde8e8;
         border-color: #e8a0a0;
       }
+      .year-tab {
+        background: white;
+        color: #b76e79;
+        border: 1.5px solid #f9e4e4;
+        border-radius: 9999px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      }
+      .year-tab.active {
+        background: linear-gradient(135deg, #b76e79, #e8a0a0);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 2px 10px rgba(183, 110, 121, 0.25);
+      }
+      .year-tab:not(.active):hover {
+        background: #fde8e8;
+        border-color: #e8a0a0;
+      }
       .letter-subgroup {
         animation: fadeInGroup 0.3s ease;
       }
@@ -1183,8 +1202,81 @@
 
         <!-- Monthsary sub-group -->
         <div class="letter-subgroup" data-sub="monthsary">
-          <div class="space-y-6">
-            <!-- 11th Monthsary -->
+          <div class="space-y-4">
+            <div class="flex justify-center mb-3">
+              <div class="rounded-full bg-white/90 border border-blush px-5 py-3 shadow-sm text-center">
+                <p class="text-rosegold text-xs uppercase tracking-[0.24em] font-semibold">
+                  Total months
+                </p>
+                <p class="font-body font-bold text-2xl text-wine" id="monthsary-total-count">
+                  12
+                </p>
+              </div>
+            </div>
+            <div class="flex justify-center flex-wrap gap-2">
+              <button class="year-tab active font-body px-6 py-3" data-year="1" onclick="switchMonthsaryYear('1')">
+                1st Year
+              </button>
+              <button class="year-tab font-body px-6 py-3" data-year="2" onclick="switchMonthsaryYear('2')">
+                2nd Year
+              </button>
+            </div>
+            <div class="month-year-group hidden space-y-6" data-year="2">
+              <!-- 13th Monthsary -->
+              <div class="folder folder-color-5" data-delay="0">
+                <div
+                  class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+                  onclick="toggleDrawer(this)"
+                >
+                  <div class="flex items-center gap-4 min-w-0">
+                    <div class="folder-number">13</div>
+                    <div class="min-w-0">
+                      <h3
+                        class="font-body font-bold text-wine text-base sm:text-lg truncate"
+                      >
+                        13th Monthsary
+                      </h3>
+                      <p class="text-wine/50 text-xs sm:text-sm truncate">
+                        August 15, 2026
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3 flex-shrink-0">
+                    <span
+                      class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider"
+                    >
+                      13th Month
+                    </span>
+                    <svg
+                      class="chevron w-5 h-5 text-wine/40"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
+                >
+                  <div class="p-5">
+                    <span
+                      class="inline-block bg-gray-300 text-gray-500 font-semibold text-sm px-6 py-2.5 rounded-full shadow-md cursor-not-allowed opacity-60"
+                    >
+                      Coming Soon
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="month-year-group space-y-6" data-year="1">
+              <!-- 11th Monthsary -->
             <div class="folder folder-color-5" data-delay="0">
               <div
                 class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
@@ -1237,6 +1329,58 @@
                   >
                     Open Letter &rarr;
                   </a>
+                </div>
+              </div>
+            </div>
+            <!-- 12th Monthsary -->
+            <div class="folder folder-color-4" data-delay="0">
+              <div
+                class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+                onclick="toggleDrawer(this)"
+              >
+                <div class="flex items-center gap-4 min-w-0">
+                  <div class="folder-number">12</div>
+                  <div class="min-w-0">
+                    <h3
+                      class="font-body font-bold text-wine text-base sm:text-lg truncate"
+                    >
+                      12th Monthsary
+                    </h3>
+                    <p class="text-wine/50 text-xs sm:text-sm truncate">
+                      July 15, 2026
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 flex-shrink-0">
+                  <span
+                    class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider"
+                  >
+                    12th Month
+                  </span>
+                  <svg
+                    class="chevron w-5 h-5 text-wine/40"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
+              >
+                <div class="p-5">
+                  <span
+                    class="inline-block bg-gray-300 text-gray-500 font-semibold text-sm px-6 py-2.5 rounded-full shadow-md cursor-not-allowed opacity-60"
+                  >
+                    Coming Soon
+                  </span>
                 </div>
               </div>
             </div>
@@ -1821,7 +1965,9 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
+        </div>
         </div>
 
         <!-- Girlfriends Day sub-group -->
@@ -3234,6 +3380,9 @@
         document.getElementById("musicControls").classList.toggle("open");
       }
 
+      // Periodically refresh the monthsary count so it updates automatically after the 15th
+      setInterval(updateMonthsaryTotalCount, 60 * 1000);
+
       // Close music panel when clicking outside
       document.addEventListener("click", function (e) {
         var panel = document.getElementById("musicPanel");
@@ -3375,6 +3524,7 @@
         // Reset sub-tabs to first when switching to letters
         if (category === "letters") {
           switchSubCategory("monthsary");
+          updateMonthsaryTotalCount();
           return;
         }
 
@@ -3477,6 +3627,61 @@
         setTimeout(function () {
           animateFoldersInGroup(activeSub);
         }, 50);
+      }
+
+      function getMonthsaryCount() {
+        var startDate = new Date("2025-08-15T00:00:00");
+        var today = new Date();
+        if (today < startDate) {
+          return 0;
+        }
+
+        var yearDiff = today.getFullYear() - startDate.getFullYear();
+        var monthDiff = today.getMonth() - startDate.getMonth();
+        var monthsSinceStart = yearDiff * 12 + monthDiff;
+        var count = monthsSinceStart + (today.getDate() >= 15 ? 1 : 0);
+
+        return Math.max(count, 0);
+      }
+
+      function updateMonthsaryTotalCount() {
+        var countDisplay = document.getElementById("monthsary-total-count");
+        if (!countDisplay) return;
+
+        var count = getMonthsaryCount();
+        countDisplay.textContent = count;
+      }
+
+      function switchMonthsaryYear(year) {
+        document.querySelectorAll(".year-tab").forEach(function (tab) {
+          if (tab.dataset.year === year) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+
+        document.querySelectorAll(".month-year-group").forEach(function (group) {
+          if (group.dataset.year === year) {
+            group.classList.remove("hidden");
+          } else {
+            group.classList.add("hidden");
+          }
+        });
+
+        updateMonthsaryTotalCount();
+
+        var activeGroup = document.querySelector(
+          '.month-year-group[data-year="' + year + '"]',
+        );
+        if (activeGroup) {
+          activeGroup.querySelectorAll(".folder").forEach(function (folder) {
+            folder.classList.remove("visible");
+          });
+          setTimeout(function () {
+            animateFoldersInGroup(activeGroup);
+          }, 50);
+        }
       }
 
       // Animate folders within a specific group
