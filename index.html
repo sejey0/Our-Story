@@ -10,6 +10,7 @@
       href="images/1st Image Together/1000019984.jpg"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -357,6 +358,7 @@
       }
       .gallery-card {
         display: none;
+        position: relative;
         border-radius: 12px;
         overflow: hidden;
         cursor: pointer;
@@ -364,8 +366,77 @@
         transition: opacity 0.4s ease;
         max-width: 100%;
       }
+      .gallery-card .download-btn {
+        position: static;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin: 0 auto 16px;
+        padding: 10px 16px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #e8a0a0, #f9c1c9);
+        color: white;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        box-shadow: 0 8px 24px rgba(183, 110, 121, 0.25);
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          opacity 0.2s ease;
+        opacity: 0.95;
+      }
+      .gallery-card:hover .download-btn {
+        transform: scale(1.02);
+        background: linear-gradient(135deg, #f9c1c9, #e8a0a0);
+      }
+      .gallery-card.active-slide .download-btn {
+        opacity: 1;
+      }
+      .gallery-card.active-slide .download-btn:hover {
+        background: linear-gradient(135deg, #f9c1c9, #e8a0a0);
+      }
       .gallery-card.active-slide {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      .zip-download-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 9999px;
+        border: none;
+        background: linear-gradient(135deg, #f9c1c9, #e8a0a0);
+        color: white;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        box-shadow: 0 10px 28px rgba(183, 110, 121, 0.28);
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+      .zip-download-btn:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, #e8a0a0, #f9c1c9);
+      }
+      .zip-download-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .zip-section-bar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 14px;
       }
       .gallery-card img {
         max-width: 100%;
@@ -3024,6 +3095,15 @@
           <button class="lightbox-action" onclick="closeLightbox(event)">
             Close
           </button>
+          <a
+            id="lightboxDownload"
+            class="lightbox-action"
+            href=""
+            download
+            onclick="event.stopPropagation()"
+          >
+            Download
+          </a>
         </div>
         <img id="lightboxImg" src="" alt="Full size photo" />
       </div>
@@ -3477,15 +3557,179 @@
       }
 
       // Lightbox for gallery
+      function extractFilename(path) {
+        try {
+          return (
+            path.split("/").pop().split("?")[0].split("#")[0] || "photo.jpg"
+          );
+        } catch (err) {
+          return "photo.jpg";
+        }
+      }
+
       function openLightbox(card) {
         var img = card.querySelector("img");
         var lightbox = document.getElementById("lightbox");
         var lightboxImg = document.getElementById("lightboxImg");
+        var lightboxDownload = document.getElementById("lightboxDownload");
         lightboxImg.src = img.src;
         lightboxImg.alt = img.alt;
+        lightboxDownload.href = img.src;
+        lightboxDownload.download = extractFilename(img.src);
         lightbox.classList.add("open");
         document.body.style.overflow = "hidden";
       }
+
+      function getSectionLabel(section) {
+        if (section.dataset.yeargroup) {
+          return section.dataset.yeargroup
+            .split("-")
+            .map(function (part, index) {
+              return index === 0
+                ? part.charAt(0).toUpperCase() + part.slice(1)
+                : part;
+            })
+            .join(" ");
+        }
+        if (section.dataset.gallerysub) {
+          return section.dataset.gallerysub
+            .replace(/^gal-/, "")
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, function (char) {
+              return char.toUpperCase();
+            })
+            .replace("1St", "1st")
+            .replace("2Nd", "2nd")
+            .replace("3Rd", "3rd");
+        }
+        return "Gallery Section";
+      }
+
+      async function downloadGalleryZip(section) {
+        if (!window.JSZip) {
+          window.alert("Zip download is not available right now.");
+          return;
+        }
+
+        var btn = section.querySelector(".zip-download-btn");
+        var originalText = btn ? btn.textContent : "Download ZIP";
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Preparing...";
+        }
+
+        var images = Array.from(section.querySelectorAll(".gallery-card img"));
+        if (images.length === 0) {
+          window.alert("No images found for this section.");
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }
+          return;
+        }
+
+        var zip = new JSZip();
+        var folderName = getSectionLabel(section).replace(/\s+/g, "_");
+        var folder = zip.folder(folderName);
+
+        var fetchPromises = images.map(function (img) {
+          var imageUrl = img.src;
+          var fileName = extractFilename(imageUrl);
+          return fetch(imageUrl)
+            .then(function (response) {
+              if (!response.ok) {
+                throw new Error("Failed to load " + imageUrl);
+              }
+              return response.blob();
+            })
+            .then(function (blob) {
+              folder.file(fileName, blob);
+            });
+        });
+
+        try {
+          await Promise.all(fetchPromises);
+          var content = await zip.generateAsync({ type: "blob" });
+          var zipName = folderName + ".zip";
+          var url = URL.createObjectURL(content);
+          var link = document.createElement("a");
+          link.href = url;
+          link.download = zipName;
+          document.body.appendChild(link);
+          link.click();
+          URL.revokeObjectURL(url);
+          link.remove();
+        } catch (err) {
+          console.error(err);
+          window.alert("Unable to create zip file. Please try again.");
+        } finally {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }
+        }
+      }
+
+      function initGalleryZipButtons() {
+        document
+          .querySelectorAll(".gallery-subgroup")
+          .forEach(function (subgroup) {
+            var hasYearGroups =
+              subgroup.querySelectorAll(".year-group").length > 0;
+            if (hasYearGroups) {
+              subgroup
+                .querySelectorAll(".year-group")
+                .forEach(function (yearGroup) {
+                  if (!yearGroup.querySelector(".zip-download-btn")) {
+                    var wrapper = document.createElement("div");
+                    wrapper.className = "zip-section-bar";
+                    var button = document.createElement("button");
+                    button.type = "button";
+                    button.className = "zip-download-btn";
+                    button.textContent = "Download this year as ZIP";
+                    button.addEventListener("click", function () {
+                      downloadGalleryZip(yearGroup);
+                    });
+                    wrapper.appendChild(button);
+                    yearGroup.insertBefore(wrapper, yearGroup.firstChild);
+                  }
+                });
+            } else if (!subgroup.querySelector(".zip-download-btn")) {
+              var wrapper = document.createElement("div");
+              wrapper.className = "zip-section-bar";
+              var button = document.createElement("button");
+              button.type = "button";
+              button.className = "zip-download-btn";
+              button.textContent = "Download section as ZIP";
+              button.addEventListener("click", function () {
+                downloadGalleryZip(subgroup);
+              });
+              wrapper.appendChild(button);
+              subgroup.insertBefore(wrapper, subgroup.firstChild);
+            }
+          });
+      }
+
+      function initGalleryDownloads() {
+        document.querySelectorAll(".gallery-card").forEach(function (card) {
+          var img = card.querySelector("img");
+          if (!img) return;
+
+          var downloadLink = document.createElement("a");
+          downloadLink.href = img.src;
+          downloadLink.className = "download-btn";
+          downloadLink.setAttribute("download", extractFilename(img.src));
+          downloadLink.textContent = "Download";
+          downloadLink.addEventListener("click", function (event) {
+            event.stopPropagation();
+          });
+
+          card.appendChild(downloadLink);
+        });
+        initGalleryZipButtons();
+      }
+
+      initGalleryDownloads();
 
       function closeLightbox(e) {
         var lightbox = document.getElementById("lightbox");
