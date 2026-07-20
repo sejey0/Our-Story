@@ -105,12 +105,119 @@
 
       /* Hero sparkle */
       .hero-section {
-        background: linear-gradient(
-          135deg,
-          #fff8f0 0%,
-          #fde8e8 50%,
-          #f9e4e4 100%
-        );
+        background: transparent;
+      }
+      .hero-section h1 {
+        display: inline-block;
+        padding: 0.75rem 1.25rem;
+        border: 2px solid rgba(183, 110, 121, 0.65);
+        border-radius: 2rem;
+        background: rgba(255, 248, 240, 0.75);
+      }
+
+      /* Bucketlist section */
+      .bucketlist-panel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 32px;
+        border: 1px solid rgba(183, 110, 121, 0.18);
+        background: rgba(255, 248, 240, 0.88);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 30px 80px rgba(183, 110, 121, 0.12);
+      }
+      .bucketlist-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top left, rgba(231, 145, 160, 0.18), transparent 40%);
+        pointer-events: none;
+      }
+      .bucketlist-content {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      .bucketlist-info {
+        max-width: 100%;
+      }
+      .bucketlist-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        background: rgba(183, 110, 121, 0.12);
+        color: #722f37;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .bucketlist-panel h2 {
+        font-size: clamp(2rem, 2.5vw, 3.25rem);
+        line-height: 1.05;
+        margin: 0.75rem 0 1rem;
+        color: #722f37;
+      }
+      .bucketlist-description {
+        color: rgba(114, 47, 55, 0.82);
+        line-height: 1.8;
+        font-size: 1rem;
+        max-width: 40rem;
+      }
+      .bucketlist-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+      }
+      .bucketlist-card {
+        padding: 1.5rem 1.75rem;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(183, 110, 121, 0.12);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), 0 18px 40px rgba(183, 110, 121, 0.08);
+      }
+      .bucketlist-card p {
+        margin: 0;
+        color: #b76e79;
+        font-weight: 700;
+      }
+      .bucketlist-card strong {
+        display: block;
+        margin-top: 0.75rem;
+        font-size: 2rem;
+        color: #e8a0a0;
+      }
+      .bucketlist-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 0.9rem 1.2rem;
+        min-width: 220px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #b76e79, #e8a0a0);
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 12px 26px rgba(183, 110, 121, 0.22);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .bucketlist-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 32px rgba(183, 110, 121, 0.26);
+      }
+      @media (min-width: 768px) {
+        .bucketlist-content {
+          grid-template-columns: 1.4fr 1fr;
+        }
+        .bucketlist-actions {
+          align-items: flex-end;
+        }
       }
 
       /* Folder / Drawer styles */
@@ -198,6 +305,13 @@
       .btn-visit:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 25px rgba(183, 110, 121, 0.4);
+      }
+      .btn-visit.disabled,
+      .btn-visit[disabled] {
+        opacity: 0.55;
+        cursor: not-allowed;
+        pointer-events: none;
+        box-shadow: none;
       }
 
       /* Staggered folder colors */
@@ -445,6 +559,7 @@
       }
       .gallery-card.active-slide .download-btn {
         opacity: 1;
+        z-index: 2;
       }
       .gallery-card.active-slide .download-btn:hover {
         background: linear-gradient(135deg, #f9c1c9, #e8a0a0);
@@ -454,6 +569,7 @@
         flex-direction: column;
         align-items: center;
         gap: 12px;
+        padding-bottom: 80px;
       }
       .zip-download-btn {
         display: inline-flex;
@@ -544,13 +660,18 @@
         bottom: 0;
         left: 0;
         right: 0;
-        padding: 8px 12px;
-        background: transparent;
-        color: white;
-        font-size: 0.75rem;
-        font-weight: 500;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        padding: 10px 14px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%);
+        color: #fff;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-align: center;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
+        z-index: 2;
+        pointer-events: none;
       }
       .gallery-card:hover .gallery-caption {
         opacity: 1;
@@ -642,8 +763,12 @@
         align-items: center;
         gap: 10px;
         z-index: 1002;
+        pointer-events: auto;
       }
       .lightbox-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         border: none;
         border-radius: 9999px;
         padding: 10px 18px;
@@ -654,6 +779,13 @@
         font-weight: 700;
         cursor: pointer;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        pointer-events: auto;
+        text-decoration: none;
+      }
+      .lightbox-close,
+      .lightbox-back,
+      .lightbox-action {
+        pointer-events: auto;
       }
       .lightbox-action:hover {
         transform: translateY(-1px);
@@ -2141,10 +2273,12 @@
               >
                 <div class="p-5">
                   <a
-                    href="https://sejey0.github.io/1st-Anniversary/"
-                    class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                    href="#"
+                    class="btn-visit disabled inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
                     target="_blank"
                     rel="noopener"
+                    aria-disabled="true"
+                    tabindex="-1"
                   >
                     Open Letter &rarr;
                   </a>
@@ -2274,20 +2408,23 @@
 
       <!-- Our Love Bucketlist & Checklist Group (hidden by default) -->
       <div class="folder-group hidden" id="group-bucketlist">
-        <div
-          class="flex flex-col items-center justify-center py-16 text-center"
-        >
-          <h2 class="font-heading text-2xl sm:text-3xl text-wine mb-8">
-            Our Love Bucketlist & Checklist
-          </h2>
-          <a
-            href="https://our-love-bucket-list-and-checklist.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-body font-semibold text-sm sm:text-base px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-          >
-            Open Our Love Bucketlist &amp; Checklist &rarr;
-          </a>
+        <div class="bucketlist-panel max-w-5xl mx-auto px-5 py-10 sm:px-8 sm:py-12">
+          <div class="bucketlist-content">
+            <div class="bucketlist-info">
+              <div class="bucketlist-meta">Love Goals</div>
+              <h2>Our Love Bucketlist &amp; Checklist</h2>
+            </div>
+            <div class="bucketlist-actions">
+              <a
+                href="https://our-love-bucket-list-and-checklist.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bucketlist-btn"
+              >
+                Open Our Love Bucketlist &amp; Checklist &rarr;
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -2329,6 +2466,13 @@
             onclick="switchGallerySub('gal-videocall')"
           >
             Video Call
+          </button>
+          <button
+            class="sub-tab font-body"
+            data-gallerysub="gal-watchtogether"
+            onclick="switchGallerySub('gal-watchtogether')"
+          >
+            Watch Together
           </button>
           <button
             class="sub-tab font-body"
@@ -3177,6 +3321,231 @@
                   alt="Tarlac 2026"
                 />
               </div>
+              <!-- July 2026 images -->
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260702202117.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260702202121.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260702202150.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260702202202.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260702202224.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112812.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112819.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112834.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112837.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112838.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112840.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112841.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112857.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112900.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704112902.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704113107.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704113117.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704113145.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704113148.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704113212.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704113214.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704113217.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704195120.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704195124.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704195134.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704195136.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704201645.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704201646.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704201658.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704201704.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704201723.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
+              <div class="gallery-card" onclick="openLightbox(this)">
+                <img data-date="July 2026"
+                  src="images/Tarlac/2026/images/July 2026/IMG20260704201727.jpg"
+                  alt="Tarlac July 2026"
+                />
+                <div class="gallery-caption">July 2026</div>
+              </div>
               <button
                 class="carousel-arrow right"
                 onclick="carouselNav(this, 1)"
@@ -3186,7 +3555,7 @@
             </div>
             <div class="carousel-counter">
               <span class="current-slide">1</span> /
-              <span class="total-slides">18</span>
+              <span class="total-slides">50</span>
             </div>
           </div>
         </div>
@@ -3251,13 +3620,101 @@
                 alt="Video Call"
               />
             </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260615_201136.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260615_201139.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260615_201150.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260616_191131.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260616_192652.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260616_192700.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260622_190353.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260622_190355.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260622_190411.jpg"
+                alt="Video Call"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Video Call/IMG_20260622_190413.jpg"
+                alt="Video Call"
+              />
+            </div>
             <button class="carousel-arrow right" onclick="carouselNav(this, 1)">
               &#8250;
             </button>
           </div>
           <div class="carousel-counter">
             <span class="current-slide">1</span> /
-            <span class="total-slides">9</span>
+            <span class="total-slides">19</span>
+          </div>
+        </div>
+
+        <!-- Watch Together gallery sub-group -->
+        <div class="gallery-subgroup hidden" data-gallerysub="gal-watchtogether">
+          <div class="gallery-grid">
+            <button class="carousel-arrow left" onclick="carouselNav(this, -1)">
+              &#8249;
+            </button>
+            <div class="gallery-card active-slide" onclick="openLightbox(this)">
+              <img
+                src="images/Watch Together/22218c9a-a844-4294-89c5-6bbe7e80f12e.jpg"
+                alt="Watch Together"
+              />
+            </div>
+            <div class="gallery-card" onclick="openLightbox(this)">
+              <img
+                src="images/Watch Together/a9fdd764-4dfe-4a66-98b6-16fc01b48ac8.jpg"
+                alt="Watch Together"
+              />
+            </div>
+            <button class="carousel-arrow right" onclick="carouselNav(this, 1)">
+              &#8250;
+            </button>
+          </div>
+          <div class="carousel-counter">
+            <span class="current-slide">1</span> /
+            <span class="total-slides">2</span>
           </div>
         </div>
 
@@ -3308,12 +3765,12 @@
           &times;
         </button>
         <div class="lightbox-actions">
-          <button class="lightbox-action" onclick="closeLightbox(event)">
+          <button class="lightbox-action lightbox-action-close" onclick="closeLightbox(event)">
             Close
           </button>
           <a
             id="lightboxDownload"
-            class="lightbox-action"
+            class="lightbox-action lightbox-download"
             href=""
             download
             onclick="event.stopPropagation()"
@@ -3342,30 +3799,39 @@
     </script>
 
     <script>
+      // Temporary development bypass: Enter button / key can unlock without the real gate answer.
+      var devBypassGate = true;
+
       // Security gate - unlock with correct answer
       function unlockGate() {
         var answer = document.getElementById("gateAnswer").value;
         var audioSelect = document.getElementById("gateAudio").value;
         var errorEl = document.getElementById("gateError");
 
-        // Validate answer - correct date is July 15, 2025
-        if (answer !== "2025-07-15") {
-          errorEl.textContent = "That's not the right date... try again!";
-          document.getElementById("gateAnswer").style.borderColor = "#c0392b";
-          setTimeout(function () {
-            document.getElementById("gateAnswer").style.borderColor = "#f9e4e4";
-          }, 2000);
-          return;
+        if (!devBypassGate) {
+          // Validate answer - correct date is July 15, 2025
+          if (answer !== "2025-07-15") {
+            errorEl.textContent = "That's not the right date... try again!";
+            document.getElementById("gateAnswer").style.borderColor = "#c0392b";
+            setTimeout(function () {
+              document.getElementById("gateAnswer").style.borderColor = "#f9e4e4";
+            }, 2000);
+            return;
+          }
+
+          // Validate audio selection
+          if (!audioSelect) {
+            errorEl.textContent = "Please select background music first!";
+            return;
+          }
         }
 
-        // Validate audio selection
-        if (!audioSelect) {
-          errorEl.textContent = "Please select background music first!";
-          return;
+        if (devBypassGate && !audioSelect) {
+          audioSelect = "none";
         }
 
         // Start background audio if selected
-        if (audioSelect !== "none") {
+        if (audioSelect && audioSelect !== "none") {
           var bgAudio = document.getElementById("bgAudio");
           bgAudio.src = audioSelect;
           bgAudio.volume = 0.3;
@@ -4047,12 +4513,15 @@
 
       function closeLightbox(e) {
         var lightbox = document.getElementById("lightbox");
-        if (
-          e.target === lightbox ||
-          e.target.classList.contains("lightbox-close") ||
-          e.target.classList.contains("lightbox-back") ||
-          e.target.classList.contains("lightbox-action")
-        ) {
+        var target = e.target;
+        if (target && target.nodeType === Node.TEXT_NODE) {
+          target = target.parentElement;
+        }
+        var closeTarget = target && target.closest
+          ? target.closest(".lightbox-close, .lightbox-back, .lightbox-action-close")
+          : null;
+
+        if (target === lightbox || closeTarget) {
           lightbox.classList.remove("open");
           document.body.style.overflow = "";
         }
