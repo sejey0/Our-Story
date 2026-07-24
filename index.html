@@ -108,14 +108,16 @@
 
       /* Hero sparkle */
       .hero-section {
-        background: transparent;
+        background: rgba(255, 248, 240, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(183, 110, 121, 0.2);
+        box-shadow: 0 4px 24px rgba(183, 110, 121, 0.15);
       }
       .hero-section h1 {
         display: inline-block;
-        padding: 0.75rem 1.25rem;
-        border: 2px solid rgba(183, 110, 121, 0.65);
-        border-radius: 2rem;
-        background: rgba(255, 248, 240, 0.75);
+        padding: 0;
+        border: none;
+        background: transparent;
       }
 
       /* Bucketlist section */
@@ -573,7 +575,7 @@
         flex-direction: column;
         align-items: center;
         gap: 12px;
-        padding-bottom: 80px;
+        padding-bottom: 0;
       }
       .zip-download-btn {
         display: inline-flex;
@@ -661,11 +663,11 @@
       }
       .gallery-caption {
         position: absolute;
-        bottom: 0;
+        top: 16px;
         left: 0;
         right: 0;
-        padding: 10px 14px;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%);
+        padding: 4px 14px;
+        background: transparent;
         color: #fff;
         font-family: "Quicksand", sans-serif;
         font-size: 0.95rem;
@@ -673,7 +675,7 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         text-align: center;
-        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.7);
         z-index: 2;
         pointer-events: none;
       }
@@ -957,7 +959,7 @@
       }
       .logout-container {
         position: fixed;
-        top: 18px;
+        top: 12px;
         right: 18px;
         z-index: 999;
         display: none;
@@ -973,18 +975,19 @@
         justify-content: center;
         padding: 0.75rem 1rem;
         border-radius: 9999px;
-        background: rgba(255, 255, 255, 0.92);
+        background: #fff;
         color: #722f37;
-        border: 1px solid rgba(183, 110, 121, 0.3);
+        border: 2px solid #b76e79;
         font-family: "Quicksand", sans-serif;
         font-weight: 700;
         cursor: pointer;
-        box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        box-shadow: 0 4px 12px rgba(183, 110, 121, 0.25);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background 0.2s ease;
       }
       .logout-desktop:hover {
         transform: translateY(-1px);
-        box-shadow: 0 10px 28px rgba(183, 110, 121, 0.3);
+        box-shadow: 0 6px 16px rgba(183, 110, 121, 0.35);
+        background: #fdf5f6;
       }
       .hamburger-btn {
         display: none;
@@ -993,12 +996,12 @@
         width: 48px;
         height: 48px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.92);
+        background: #fff;
         color: #722f37;
-        border: 1px solid rgba(183, 110, 121, 0.3);
+        border: 2px solid #b76e79;
         cursor: pointer;
-        box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 12px rgba(183, 110, 121, 0.25);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
       }
       .hamburger-btn:hover {
         transform: translateY(-1px);
@@ -1045,7 +1048,7 @@
       }
       .hide-ui-btn {
         position: fixed;
-        top: 18px;
+        top: 12px;
         left: 18px;
         z-index: 1000;
         display: none;
@@ -1054,16 +1057,17 @@
         width: 48px;
         height: 48px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.92);
+        background: #fff;
         color: #722f37;
-        border: 1px solid rgba(183, 110, 121, 0.3);
+        border: 2px solid #b76e79;
         cursor: pointer;
-        box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 12px rgba(183, 110, 121, 0.25);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
       }
       .hide-ui-btn:hover {
         transform: translateY(-1px);
-        box-shadow: 0 10px 28px rgba(183, 110, 121, 0.3);
+        box-shadow: 0 6px 16px rgba(183, 110, 121, 0.35);
+        background: #fdf5f6;
       }
       .hide-ui-btn.visible {
         display: inline-flex !important;
@@ -1239,6 +1243,13 @@
         font-size: 0.85rem;
         flex-shrink: 0;
         box-shadow: 0 2px 8px rgba(183, 110, 121, 0.3);
+      }
+      @keyframes floatItem {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+      .animate-float-item {
+        animation: floatItem 3s ease-in-out infinite;
       }
     </style>
   </head>
@@ -1426,11 +1437,41 @@
 
     <!-- Hero Section -->
     <section
-      class="hero-section ui-fade fixed top-0 left-0 right-0 z-20 flex items-center justify-center py-4 px-4 text-center"
+      class="hero-section ui-fade fixed top-0 left-0 right-0 z-20 flex items-center justify-center py-1.5 px-4 text-center"
     >
-      <h1 class="font-script text-4xl sm:text-5xl text-rosegold drop-shadow-sm">
+      <div class="hidden md:flex items-center">
+        <div class="relative flex flex-col items-center justify-center w-[64px] h-[64px] z-10">
+          <svg class="absolute inset-0 w-full h-full text-[#fdf5f6]" style="filter: drop-shadow(0 2px 4px rgba(183,110,121,0.15))" viewBox="-1 -1 26 26" fill="currentColor" stroke="#b76e79" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <div class="relative z-10 flex flex-col items-center mt-[-6px]">
+            <img src="zodiac_signs/astrology.png" alt="Astrology" class="w-3 h-3 mb-0.5 drop-shadow-sm" />
+            <span class="text-sm leading-none font-script text-[#722f37]">Ayen</span>
+          </div>
+        </div>
+        <svg class="w-16 h-6 lg:w-[80px] lg:h-[30px] text-[#b76e79] -ml-2" viewBox="0 0 100 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M0,20 L30,20 L37,5 L48,35 L55,20 L100,20" />
+        </svg>
+      </div>
+
+      <h1 class="font-script text-3xl sm:text-4xl text-rosegold drop-shadow-sm mx-2">
         Us &mdash; Our Story
       </h1>
+
+      <div class="hidden md:flex items-center">
+        <svg class="w-16 h-6 lg:w-[80px] lg:h-[30px] text-[#b76e79] -mr-2" viewBox="0 0 100 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M0,20 L45,20 L52,5 L63,35 L70,20 L100,20" />
+        </svg>
+        <div class="relative flex flex-col items-center justify-center w-[64px] h-[64px] z-10">
+          <svg class="absolute inset-0 w-full h-full text-[#fdf5f6]" style="filter: drop-shadow(0 2px 4px rgba(183,110,121,0.15))" viewBox="-1 -1 26 26" fill="currentColor" stroke="#b76e79" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <div class="relative z-10 flex flex-col items-center mt-[-6px]">
+            <img src="zodiac_signs/aquarius.png" alt="Aquarius" class="w-3 h-3 mb-0.5 drop-shadow-sm" />
+            <span class="text-sm leading-none font-script text-[#722f37]">Cjay</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div id="logoutContainer" class="logout-container ui-fade">
