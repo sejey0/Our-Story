@@ -110,7 +110,7 @@
       .hero-section {
         background: rgba(255, 248, 240, 0.85);
         backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(183, 110, 121, 0.2);
+        border-bottom: 2px solid #b76e79;
         box-shadow: 0 4px 24px rgba(183, 110, 121, 0.15);
       }
       .hero-section h1 {
@@ -354,19 +354,27 @@
 
       /* Category tabs */
       .category-tab {
-        background: white;
-        color: #b76e79;
-        border: 2px solid #f9e4e4;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: #722f37;
+        border: 1px solid rgba(183, 110, 121, 0.25);
+        box-shadow: 0 4px 15px rgba(183, 110, 121, 0.08), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+        transform: translateY(0);
       }
       .category-tab.active {
         background: linear-gradient(135deg, #b76e79, #e8a0a0);
         color: white;
         border-color: transparent;
-        box-shadow: 0 4px 15px rgba(183, 110, 121, 0.35);
+        box-shadow: 0 8px 24px rgba(183, 110, 121, 0.45), inset 0 2px 6px rgba(255, 255, 255, 0.35);
+        transform: translateY(-2px);
       }
       .category-tab:not(.active):hover {
-        background: #fde8e8;
-        border-color: #e8a0a0;
+        background: rgba(255, 255, 255, 0.95);
+        border-color: rgba(183, 110, 121, 0.5);
+        box-shadow: 0 6px 18px rgba(183, 110, 121, 0.2);
+        transform: translateY(-1px);
+        color: #b76e79;
       }
 
       /* Folder group transition */
@@ -412,25 +420,33 @@
 
       /* Sub-tabs inside Letters */
       .sub-tab {
-        background: white;
-        color: #b76e79;
-        border: 1.5px solid #f9e4e4;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: #722f37;
+        border: 1px solid rgba(183, 110, 121, 0.25);
         font-size: 0.75rem;
         padding: 6px 16px;
         border-radius: 9999px;
         cursor: pointer;
         transition: all 0.3s ease;
         font-weight: 600;
+        box-shadow: 0 2px 8px rgba(183, 110, 121, 0.05), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+        transform: translateY(0);
       }
       .sub-tab.active {
         background: linear-gradient(135deg, #b76e79, #e8a0a0);
         color: white;
         border-color: transparent;
-        box-shadow: 0 2px 10px rgba(183, 110, 121, 0.25);
+        box-shadow: 0 4px 12px rgba(183, 110, 121, 0.4), inset 0 1px 3px rgba(255, 255, 255, 0.35);
+        transform: translateY(-1.5px);
       }
       .sub-tab:not(.active):hover {
-        background: #fde8e8;
-        border-color: #e8a0a0;
+        background: rgba(255, 255, 255, 0.95);
+        border-color: rgba(183, 110, 121, 0.45);
+        box-shadow: 0 4px 10px rgba(183, 110, 121, 0.15);
+        transform: translateY(-1px);
+        color: #b76e79;
       }
       .year-tab {
         background: white;
@@ -2528,20 +2544,31 @@
 
       <!-- Our Love Bucketlist & Checklist Group (hidden by default) -->
       <div class="folder-group hidden" id="group-bucketlist">
-        <div class="bucketlist-panel max-w-5xl mx-auto px-5 py-10 sm:px-8 sm:py-12">
-          <div class="bucketlist-content">
-            <div class="bucketlist-info">
-              <div class="bucketlist-meta">Love Goals</div>
-              <h2>Our Love Bucketlist &amp; Checklist</h2>
-            </div>
-            <div class="bucketlist-actions">
+        <div class="max-w-2xl mx-auto px-5 py-12">
+          <div class="relative overflow-hidden rounded-3xl bg-white/60 backdrop-blur-xl border border-white/50 shadow-xl group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <!-- Decorative gradient orb -->
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br from-[#b76e79]/30 to-[#e8a0a0]/30 rounded-full blur-3xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
+            <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-gradient-to-tr from-[#fdf5f6]/50 to-[#e8a0a0]/20 rounded-full blur-3xl opacity-60"></div>
+            
+            <div class="relative p-8 sm:p-12 flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#b76e79] to-[#e8a0a0] flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              
+              <h2 class="text-3xl sm:text-4xl font-script text-[#722f37] mb-8">Our Love Bucketlist</h2>
+              
               <a
                 href="https://our-love-bucket-list-and-checklist.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="bucketlist-btn"
+                class="inline-flex items-center gap-2 bg-gradient-to-r from-[#b76e79] to-[#e8a0a0] text-white font-semibold font-body px-8 py-3.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
-                Open Our Love Bucketlist &amp; Checklist &rarr;
+                <span>Explore Our Checklist</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </a>
             </div>
           </div>
@@ -2605,23 +2632,13 @@
 
         <!-- 1st Image Together gallery sub-group -->
         <div class="gallery-subgroup" data-gallerysub="gal-1st">
-          <div class="gallery-grid">
-            <button class="carousel-arrow left" onclick="carouselNav(this, -1)">
-              &#8249;
-            </button>
+          <div class="gallery-grid" style="grid-template-columns: 1fr; max-width: 320px; margin: 0 auto;">
             <div class="gallery-card active-slide" onclick="openLightbox(this)">
               <img
                 src="images/1st Image Together/1000019984.jpg"
                 alt="1st Image Together"
               />
             </div>
-            <button class="carousel-arrow right" onclick="carouselNav(this, 1)">
-              &#8250;
-            </button>
-          </div>
-          <div class="carousel-counter">
-            <span class="current-slide">1</span> /
-            <span class="total-slides">1</span>
           </div>
         </div>
 
@@ -4582,31 +4599,37 @@
                 .querySelectorAll(".year-group")
                 .forEach(function (yearGroup) {
                   if (!yearGroup.querySelector(".zip-download-btn")) {
-                    var wrapper = document.createElement("div");
-                    wrapper.className = "zip-section-bar";
-                    var button = document.createElement("button");
-                    button.type = "button";
-                    button.className = "zip-download-btn";
-                    button.textContent = "Download this year as ZIP";
-                    button.addEventListener("click", function () {
-                      downloadGalleryZip(yearGroup);
-                    });
-                    wrapper.appendChild(button);
-                    yearGroup.insertBefore(wrapper, yearGroup.firstChild);
+                    var images = yearGroup.querySelectorAll(".gallery-card img");
+                    if (images.length > 1) {
+                      var wrapper = document.createElement("div");
+                      wrapper.className = "zip-section-bar";
+                      var button = document.createElement("button");
+                      button.type = "button";
+                      button.className = "zip-download-btn";
+                      button.textContent = "Download this year as ZIP";
+                      button.addEventListener("click", function () {
+                        downloadGalleryZip(yearGroup);
+                      });
+                      wrapper.appendChild(button);
+                      yearGroup.insertBefore(wrapper, yearGroup.firstChild);
+                    }
                   }
                 });
             } else if (!subgroup.querySelector(".zip-download-btn")) {
-              var wrapper = document.createElement("div");
-              wrapper.className = "zip-section-bar";
-              var button = document.createElement("button");
-              button.type = "button";
-              button.className = "zip-download-btn";
-              button.textContent = "Download section as ZIP";
-              button.addEventListener("click", function () {
-                downloadGalleryZip(subgroup);
-              });
-              wrapper.appendChild(button);
-              subgroup.insertBefore(wrapper, subgroup.firstChild);
+              var images = subgroup.querySelectorAll(".gallery-card img");
+              if (images.length > 1) {
+                var wrapper = document.createElement("div");
+                wrapper.className = "zip-section-bar";
+                var button = document.createElement("button");
+                button.type = "button";
+                button.className = "zip-download-btn";
+                button.textContent = "Download section as ZIP";
+                button.addEventListener("click", function () {
+                  downloadGalleryZip(subgroup);
+                });
+                wrapper.appendChild(button);
+                subgroup.insertBefore(wrapper, subgroup.firstChild);
+              }
             }
           });
       }
