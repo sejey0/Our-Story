@@ -53,6 +53,9 @@
         padding: 0;
         box-sizing: border-box;
       }
+      html {
+        overflow-y: scroll;
+      }
       html.gate-open,
       body.gate-open {
         overflow: hidden;
@@ -237,6 +240,7 @@
       .folder-tab {
         position: relative;
         cursor: pointer;
+        backdrop-filter: blur(4px);
         transition: all 0.3s ease;
       }
       .folder-tab::before {
@@ -316,34 +320,34 @@
 
       /* Staggered folder colors */
       .folder-color-1 .folder-tab {
-        background: linear-gradient(135deg, #f9e4e4, #f0d0d0);
+        background: linear-gradient(135deg, rgba(249, 228, 228, 0.65), rgba(240, 208, 208, 0.65));
       }
       .folder-color-1 .folder-tab::before {
-        background: linear-gradient(135deg, #f9e4e4, #f0d0d0);
+        background: linear-gradient(135deg, rgba(249, 228, 228, 0.65), rgba(240, 208, 208, 0.65));
       }
       .folder-color-2 .folder-tab {
-        background: linear-gradient(135deg, #e8d5e0, #dfc8d8);
+        background: linear-gradient(135deg, rgba(232, 213, 224, 0.65), rgba(223, 200, 216, 0.65));
       }
       .folder-color-2 .folder-tab::before {
-        background: linear-gradient(135deg, #e8d5e0, #dfc8d8);
+        background: linear-gradient(135deg, rgba(232, 213, 224, 0.65), rgba(223, 200, 216, 0.65));
       }
       .folder-color-3 .folder-tab {
-        background: linear-gradient(135deg, #fde8e8, #f5d5d5);
+        background: linear-gradient(135deg, rgba(253, 232, 232, 0.65), rgba(245, 213, 213, 0.65));
       }
       .folder-color-3 .folder-tab::before {
-        background: linear-gradient(135deg, #fde8e8, #f5d5d5);
+        background: linear-gradient(135deg, rgba(253, 232, 232, 0.65), rgba(245, 213, 213, 0.65));
       }
       .folder-color-4 .folder-tab {
-        background: linear-gradient(135deg, #f0dde4, #e8cdd8);
+        background: linear-gradient(135deg, rgba(240, 221, 228, 0.65), rgba(232, 205, 216, 0.65));
       }
       .folder-color-4 .folder-tab::before {
-        background: linear-gradient(135deg, #f0dde4, #e8cdd8);
+        background: linear-gradient(135deg, rgba(240, 221, 228, 0.65), rgba(232, 205, 216, 0.65));
       }
       .folder-color-5 .folder-tab {
-        background: linear-gradient(135deg, #f5e0e0, #ebd0d0);
+        background: linear-gradient(135deg, rgba(245, 224, 224, 0.65), rgba(235, 208, 208, 0.65));
       }
       .folder-color-5 .folder-tab::before {
-        background: linear-gradient(135deg, #f5e0e0, #ebd0d0);
+        background: linear-gradient(135deg, rgba(245, 224, 224, 0.65), rgba(235, 208, 208, 0.65));
       }
 
       /* Category tabs */
@@ -951,11 +955,19 @@
         display: block;
         animation: gateSlideUp 0.4s ease;
       }
-      .logout-btn {
+      .logout-container {
         position: fixed;
         top: 18px;
         right: 18px;
         z-index: 999;
+        display: none;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      .logout-container.visible {
+        display: flex !important;
+      }
+      .logout-desktop {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -970,12 +982,110 @@
         box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
         transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
       }
-      .logout-btn:hover {
+      .logout-desktop:hover {
         transform: translateY(-1px);
         box-shadow: 0 10px 28px rgba(183, 110, 121, 0.3);
       }
-      .logout-btn.visible {
+      .hamburger-btn {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        color: #722f37;
+        border: 1px solid rgba(183, 110, 121, 0.3);
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .hamburger-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 28px rgba(183, 110, 121, 0.3);
+      }
+      .logout-dropdown {
+        display: none;
+        margin-top: 8px;
+        flex-direction: column;
+        align-items: flex-end;
+        animation: fadeInGroup 0.2s ease;
+      }
+      .logout-dropdown.open {
+        display: flex;
+      }
+      .logout-dropdown-btn {
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.95);
+        color: #722f37;
+        border: 1px solid rgba(183, 110, 121, 0.3);
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(183, 110, 121, 0.2);
+      }
+      @media (max-width: 640px) {
+        .logout-container {
+          top: 14px;
+          right: 14px;
+        }
+        .logout-desktop {
+          display: none;
+        }
+        .hamburger-btn {
+          display: inline-flex;
+          width: 40px;
+          height: 40px;
+        }
+        .hamburger-btn svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .hide-ui-btn {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        color: #722f37;
+        border: 1px solid rgba(183, 110, 121, 0.3);
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .hide-ui-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 28px rgba(183, 110, 121, 0.3);
+      }
+      .hide-ui-btn.visible {
         display: inline-flex !important;
+      }
+      @media (max-width: 640px) {
+        .hide-ui-btn {
+          top: 14px;
+          left: 14px;
+          width: 40px;
+          height: 40px;
+        }
+        .hide-ui-btn svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .ui-fade {
+        transition: opacity 0.5s ease;
+      }
+      body.ui-hidden .ui-fade {
+        opacity: 0 !important;
+        pointer-events: none !important;
       }
       .music-toggle-btn {
         width: 48px;
@@ -1202,7 +1312,7 @@
     <audio id="bgAudio" loop></audio>
 
     <!-- Music Control Panel -->
-    <div class="music-panel" id="musicPanel">
+    <div class="music-panel ui-fade" id="musicPanel">
       <div class="music-controls" id="musicControls">
         <div class="music-controls-title">Now Playing</div>
         <div class="music-now-playing" id="nowPlaying">No music</div>
@@ -1316,25 +1426,45 @@
 
     <!-- Hero Section -->
     <section
-      class="hero-section fixed top-0 left-0 right-0 z-20 flex items-center justify-center py-4 px-4 text-center"
+      class="hero-section ui-fade fixed top-0 left-0 right-0 z-20 flex items-center justify-center py-4 px-4 text-center"
     >
       <h1 class="font-script text-4xl sm:text-5xl text-rosegold drop-shadow-sm">
         Us &mdash; Our Story
       </h1>
     </section>
 
+    <div id="logoutContainer" class="logout-container ui-fade">
+      <button class="logout-desktop" onclick="logout()" title="Logout">
+        Logout
+      </button>
+      <button class="hamburger-btn" onclick="toggleLogoutMenu()" title="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <div id="logoutDropdown" class="logout-dropdown">
+        <button class="logout-dropdown-btn" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Hide UI Button -->
     <button
-      id="logoutBtn"
-      class="logout-btn"
-      onclick="logout()"
-      title="Logout"
-      style="display: none"
+      id="hideUiBtn"
+      class="hide-ui-btn"
+      onclick="toggleUI()"
+      title="Toggle UI"
     >
-      Logout
+      <svg id="eyeIconOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      <svg id="eyeIconClosed" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+      </svg>
     </button>
 
     <!-- Category Tabs -->
-    <section class="relative z-10 max-w-2xl mx-auto px-4 pt-28">
+    <section class="relative z-10 ui-fade max-w-2xl mx-auto px-4 pt-28">
       <div
         class="flex justify-center flex-wrap gap-3 sm:gap-4"
         id="categoryTabs"
@@ -1364,7 +1494,7 @@
     </section>
 
     <!-- Folders Section -->
-    <section class="relative z-10 max-w-2xl mx-auto px-4 pb-32 pt-8">
+    <section class="relative z-10 ui-fade max-w-2xl mx-auto px-4 pb-32 pt-8">
       <!-- Letters Group (contains sub-tabs) -->
       <div class="folder-group" id="group-letters">
         <!-- Sub-tab bar -->
@@ -1378,17 +1508,17 @@
           </button>
           <button
             class="sub-tab font-body"
-            data-sub="girlfriends"
-            onclick="switchSubCategory('girlfriends')"
-          >
-            Girlfriends Day
-          </button>
-          <button
-            class="sub-tab font-body"
             data-sub="anniversary"
             onclick="switchSubCategory('anniversary')"
           >
             Anniversary
+          </button>
+          <button
+            class="sub-tab font-body"
+            data-sub="girlfriends"
+            onclick="switchSubCategory('girlfriends')"
+          >
+            Girlfriends Day
           </button>
           <button
             class="sub-tab font-body"
@@ -1531,58 +1661,7 @@
                 </div>
               </div>
             </div>
-            <!-- 12th Monthsary -->
-            <div class="folder folder-color-4" data-delay="0">
-              <div
-                class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-                onclick="toggleDrawer(this)"
-              >
-                <div class="flex items-center gap-4 min-w-0">
-                  <div class="folder-number">12</div>
-                  <div class="min-w-0">
-                    <h3
-                      class="font-body font-bold text-wine text-base sm:text-lg truncate"
-                    >
-                      12th Monthsary
-                    </h3>
-                    <p class="text-wine/50 text-xs sm:text-sm truncate">
-                      July 15, 2026
-                    </p>
-                  </div>
-                </div>
-                <div class="flex items-center gap-3 flex-shrink-0">
-                  <span
-                    class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider"
-                  >
-                    12th Month
-                  </span>
-                  <svg
-                    class="chevron w-5 h-5 text-wine/40"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div
-                class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
-              >
-                <div class="p-5">
-                  <span
-                    class="inline-block bg-gray-300 text-gray-500 font-semibold text-sm px-6 py-2.5 rounded-full shadow-md cursor-not-allowed opacity-60"
-                  >
-                    Coming Soon
-                  </span>
-                </div>
-              </div>
-            </div>
+
             <!-- 10th Monthsary -->
             <div class="folder folder-color-5" data-delay="0">
               <div
@@ -2169,6 +2248,64 @@
         </div>
         </div>
 
+        <!-- Anniversary sub-group -->
+        <div class="letter-subgroup hidden" data-sub="anniversary">
+          <div class="space-y-6">
+            <!-- 1st Anniversary -->
+            <div class="folder folder-color-1" data-delay="0">
+              <div
+                class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+                onclick="toggleDrawer(this)"
+              >
+                <div class="flex items-center gap-4 min-w-0">
+                  <div class="folder-number">1</div>
+                  <div class="min-w-0">
+                    <h3
+                      class="font-body font-bold text-wine text-base sm:text-lg truncate"
+                    >
+                      1st Anniversary
+                    </h3>
+                    <p class="text-wine/50 text-xs sm:text-sm truncate">
+                      July 15, 2026
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 flex-shrink-0">
+                  <svg
+                    class="chevron w-5 h-5 text-wine/40"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
+              >
+                <div class="p-5">
+                  <a
+                    href="#"
+                    class="btn-visit disabled inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                    target="_blank"
+                    rel="noopener"
+                    aria-disabled="true"
+                    tabindex="-1"
+                  >
+                    Open Letter &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Girlfriends Day sub-group -->
         <div class="letter-subgroup hidden" data-sub="girlfriends">
           <div class="space-y-6">
@@ -2221,64 +2358,6 @@
                     class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
                     target="_blank"
                     rel="noopener"
-                  >
-                    Open Letter &rarr;
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Anniversary sub-group -->
-        <div class="letter-subgroup hidden" data-sub="anniversary">
-          <div class="space-y-6">
-            <!-- 1st Anniversary -->
-            <div class="folder folder-color-1" data-delay="0">
-              <div
-                class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
-                onclick="toggleDrawer(this)"
-              >
-                <div class="flex items-center gap-4 min-w-0">
-                  <div class="folder-number">1</div>
-                  <div class="min-w-0">
-                    <h3
-                      class="font-body font-bold text-wine text-base sm:text-lg truncate"
-                    >
-                      1st Anniversary
-                    </h3>
-                    <p class="text-wine/50 text-xs sm:text-sm truncate">
-                      July 15, 2026
-                    </p>
-                  </div>
-                </div>
-                <div class="flex items-center gap-3 flex-shrink-0">
-                  <svg
-                    class="chevron w-5 h-5 text-wine/40"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div
-                class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
-              >
-                <div class="p-5">
-                  <a
-                    href="#"
-                    class="btn-visit disabled inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
-                    target="_blank"
-                    rel="noopener"
-                    aria-disabled="true"
-                    tabindex="-1"
                   >
                     Open Letter &rarr;
                   </a>
@@ -3783,9 +3862,7 @@
     </section>
 
     <!-- Footer -->
-    <footer
-      class="relative z-10 text-center py-12 bg-gradient-to-t from-blush/50 to-transparent"
-    ></footer>
+    <footer class="relative z-10 text-center py-12"></footer>
 
     <script>
       document.querySelectorAll("img").forEach(function (img) {
@@ -3866,14 +3943,17 @@
         document.getElementById("gateOverlay").classList.add("hidden");
         document.body.classList.remove("gate-open");
         document.body.classList.add("unlocked-bg");
-        document.getElementById("logoutBtn").classList.add("visible");
+        document.getElementById("logoutContainer").classList.add("visible");
+        document.getElementById("hideUiBtn").classList.add("visible");
       }
 
       function logout() {
         document.getElementById("gateOverlay").classList.remove("hidden");
         document.body.classList.add("gate-open");
         document.body.classList.remove("unlocked-bg");
-        document.getElementById("logoutBtn").classList.remove("visible");
+        document.getElementById("logoutContainer").classList.remove("visible");
+        document.getElementById("logoutDropdown").classList.remove("open");
+        document.getElementById("hideUiBtn").classList.remove("visible");
 
         var bgAudio = document.getElementById("bgAudio");
         bgAudio.pause();
@@ -4534,6 +4614,21 @@
           document.body.style.overflow = "";
         }
       });
+
+      function toggleUI() {
+        var isHidden = document.body.classList.toggle("ui-hidden");
+        if (isHidden) {
+          document.getElementById("eyeIconOpen").classList.add("hidden");
+          document.getElementById("eyeIconClosed").classList.remove("hidden");
+        } else {
+          document.getElementById("eyeIconOpen").classList.remove("hidden");
+          document.getElementById("eyeIconClosed").classList.add("hidden");
+        }
+      }
+
+      function toggleLogoutMenu() {
+        document.getElementById("logoutDropdown").classList.toggle("open");
+      }
     </script>
   </body>
 </html>
