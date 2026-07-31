@@ -2346,14 +2346,13 @@
               <div
                 class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
               >
-                <div class="p-5">
+                <div class="p-5" id="anniversary1-content">
                   <a
-                    href="#"
-                    class="btn-visit disabled inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                    id="anniversary1-link"
+                    href="https://sejey0.github.io/1st-Anniversary/"
+                    class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
                     target="_blank"
                     rel="noopener"
-                    aria-disabled="true"
-                    tabindex="-1"
                   >
                     Open Letter &rarr;
                   </a>
@@ -3934,8 +3933,8 @@
     </script>
 
     <script>
-      // Temporary development bypass: Enter button / key can unlock without the real gate answer.
-      var devBypassGate = true;
+      // Security gate PIN / date validation enabled
+      var devBypassGate = false;
 
       // Security gate - unlock with correct answer
       function unlockGate() {
@@ -3945,7 +3944,17 @@
 
         if (!devBypassGate) {
           // Validate answer - correct date is July 15, 2025
-          if (answer !== "2025-07-15") {
+          var cleanAnswer = (answer || "").trim().toLowerCase();
+          var digitsOnly = cleanAnswer.replace(/\D/g, "");
+          var isValidDate = (
+            cleanAnswer === "2025-07-15" ||
+            digitsOnly === "20250715" ||
+            digitsOnly === "07152025" ||
+            digitsOnly === "7152025" ||
+            cleanAnswer.includes("july 15")
+          );
+
+          if (!isValidDate) {
             errorEl.textContent = "That's not the right date... try again!";
             document.getElementById("gateAnswer").style.borderColor = "#c0392b";
             setTimeout(function () {
@@ -3953,15 +3962,9 @@
             }, 2000);
             return;
           }
-
-          // Validate audio selection
-          if (!audioSelect) {
-            errorEl.textContent = "Please select background music first!";
-            return;
-          }
         }
 
-        if (devBypassGate && !audioSelect) {
+        if (!audioSelect) {
           audioSelect = "none";
         }
 
