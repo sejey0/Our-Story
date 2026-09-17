@@ -1595,7 +1595,7 @@
                   Total months
                 </p>
                 <p class="font-body font-bold text-2xl text-wine" id="monthsary-total-count">
-                  12
+                  13
                 </p>
               </div>
             </div>
@@ -1608,6 +1608,59 @@
               </button>
             </div>
             <div class="month-year-group hidden space-y-6" data-year="2">
+              <!-- 14th Monthsary -->
+              <div class="folder folder-color-4" data-delay="0">
+                <div
+                  class="folder-tab rounded-xl px-5 py-4 shadow-md flex items-center justify-between gap-4"
+                  onclick="toggleDrawer(this)"
+                >
+                  <div class="flex items-center gap-4 min-w-0">
+                    <div class="folder-number">14</div>
+                    <div class="min-w-0">
+                      <h3
+                        class="font-body font-bold text-wine text-base sm:text-lg truncate"
+                      >
+                        14th Monthsary
+                      </h3>
+                      <p class="text-wine/50 text-xs sm:text-sm truncate">
+                        September 15, 2026
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3 flex-shrink-0">
+                    <span
+                      class="hidden sm:inline-block bg-white/60 text-rosegold text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider"
+                    >
+                      14th Month
+                    </span>
+                    <svg
+                      class="chevron w-5 h-5 text-wine/40"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
+                >
+                  <div class="p-5">
+                    <span
+                      class="inline-block bg-gray-300 text-gray-500 font-semibold text-sm px-6 py-2.5 rounded-full shadow-md cursor-not-allowed opacity-60"
+                    >
+                      Coming Soon
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               <!-- 13th Monthsary -->
               <div class="folder folder-color-5" data-delay="0">
                 <div
@@ -1651,12 +1704,16 @@
                 <div
                   class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
                 >
-                  <div class="p-5">
-                    <span
-                      class="inline-block bg-gray-300 text-gray-500 font-semibold text-sm px-6 py-2.5 rounded-full shadow-md cursor-not-allowed opacity-60"
+                  <div class="p-5" id="monthsary13-content">
+                    <a
+                      id="monthsary13-link"
+                      href="https://sejey0.github.io/13th-Monthsary/"
+                      class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                      target="_blank"
+                      rel="noopener"
                     >
-                      Coming Soon
-                    </span>
+                      Open Letter &rarr;
+                    </a>
                   </div>
                 </div>
               </div>
@@ -4134,7 +4191,8 @@
         document.getElementById("musicControls").classList.toggle("open");
       }
 
-      // Periodically refresh the monthsary count so it updates automatically after the 15th
+      // Refresh the monthsary count on load and periodically after the 15th
+      updateMonthsaryTotalCount();
       setInterval(updateMonthsaryTotalCount, 60 * 1000);
 
       // Close music panel when clicking outside
