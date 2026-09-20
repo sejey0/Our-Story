@@ -447,21 +447,25 @@
         }
       }
 
-      /* Sub-tabs inside Letters */
+      /* Sub-tabs */
       .sub-tab {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         color: #722f37;
         border: 1px solid rgba(183, 110, 121, 0.25);
-        font-size: 0.75rem;
-        padding: 6px 16px;
+        font-size: 0.8rem;
+        padding: 8px 14px;
         border-radius: 9999px;
         cursor: pointer;
         transition: all 0.3s ease;
         font-weight: 600;
         box-shadow: 0 2px 8px rgba(183, 110, 121, 0.05), inset 0 1px 2px rgba(255, 255, 255, 0.6);
         transform: translateY(0);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
       }
       .sub-tab.active {
         background: linear-gradient(135deg, #b76e79, #e8a0a0);
@@ -476,6 +480,14 @@
         box-shadow: 0 4px 10px rgba(183, 110, 121, 0.15);
         transform: translateY(-1px);
         color: #b76e79;
+      }
+      /* No scrollbar utility */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
       .year-tab {
         background: white;
@@ -971,15 +983,6 @@
       .gate-btn:active {
         transform: translateY(0);
       }
-      .gate-error {
-        color: #ff6b6b;
-        font-family: "Quicksand", sans-serif;
-        font-size: 0.8rem;
-        font-weight: 600;
-        margin-top: 10px;
-        min-height: 20px;
-        transition: opacity 0.3s ease;
-      }
       .gate-field {
         margin-bottom: 20px;
       }
@@ -994,6 +997,112 @@
       .gate-icon svg {
         width: 44px;
         height: 44px;
+      }
+
+      /* Gate Validation Alert Popup Modal */
+      .gate-popup-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 100000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+      }
+      .gate-popup-overlay.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .gate-popup-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(26, 10, 46, 0.72);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .gate-popup-card {
+        position: relative;
+        z-index: 10;
+        width: 90%;
+        max-width: 360px;
+        background: rgba(255, 248, 240, 0.96);
+        border: 1.5px solid rgba(183, 110, 121, 0.35);
+        border-radius: 24px;
+        padding: 30px 24px 26px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 0 35px rgba(183, 110, 121, 0.22);
+        text-align: center;
+        transform: scale(0.92) translateY(16px);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .gate-popup-overlay.open .gate-popup-card {
+        transform: scale(1) translateY(0);
+      }
+      .gate-popup-icon-wrap {
+        width: 56px;
+        height: 56px;
+        margin: 0 auto 14px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #fde8e8, #f9e4e4);
+        border: 1px solid rgba(183, 110, 121, 0.3);
+        box-shadow: 0 4px 15px rgba(183, 110, 121, 0.2);
+      }
+      .gate-popup-icon-wrap svg {
+        width: 26px;
+        height: 26px;
+        color: #722f37;
+      }
+      .gate-popup-title {
+        font-family: 'Great Vibes', cursive;
+        font-size: 2.2rem;
+        line-height: 1.1;
+        color: #722f37;
+        margin-bottom: 8px;
+        text-shadow: 0 1px 2px rgba(183, 110, 121, 0.15);
+      }
+      .gate-popup-message {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: #5a3d40;
+        line-height: 1.45;
+        margin-bottom: 22px;
+      }
+      .gate-popup-btn {
+        width: 100%;
+        padding: 12px 20px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #b76e79, #e8a0a0);
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 16px rgba(183, 110, 121, 0.35);
+      }
+      .gate-popup-btn:hover {
+        transform: translateY(-1.5px);
+        box-shadow: 0 6px 22px rgba(183, 110, 121, 0.45);
+      }
+      .gate-popup-btn:active {
+        transform: translateY(0);
+      }
+      /* Input error shake animation */
+      @keyframes gateFieldShake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-6px); }
+        40%, 80% { transform: translateX(6px); }
+      }
+      .gate-shake {
+        animation: gateFieldShake 0.4s ease;
       }
 
       /* Music Control Panel */
@@ -1180,9 +1289,9 @@
         right: 0;
         background: white;
         border-radius: 16px;
-        padding: 16px;
+        padding: 16px 14px;
         box-shadow: 0 10px 40px rgba(183, 110, 121, 0.25);
-        min-width: 220px;
+        min-width: 260px;
         opacity: 0;
         visibility: hidden;
         transform: translateY(10px);
@@ -1209,35 +1318,41 @@
         color: #722f37;
         text-align: center;
         margin-bottom: 12px;
-        opacity: 0.7;
+        opacity: 0.75;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        padding: 0 4px;
       }
       .music-btn-row {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
         margin-bottom: 12px;
       }
       .music-btn {
-        width: 38px;
-        height: 38px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
         border: 1.5px solid #f9e4e4;
         background: white;
         color: #b76e79;
-        font-size: 1rem;
+        font-size: 0.95rem;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
+        flex-shrink: 0;
       }
       .music-btn:hover {
         background: #fde8e8;
         border-color: #e8a0a0;
+        transform: translateY(-1px);
+      }
+      .music-btn:active {
+        transform: translateY(0);
       }
       .music-btn.active-play {
         background: linear-gradient(135deg, #b76e79, #e8a0a0);
@@ -1341,7 +1456,9 @@
             >Choose background music</label
           >
           <select class="gate-select" id="gateAudio">
-            <option value="" disabled selected>Select a song...</option>
+            <option value="" disabled selected>Select music...</option>
+            <option value="shuffle">Shuffle all songs (Loop)</option>
+            <option value="none">No music (Mute)</option>
             <option value="audios/Adie - Tahanan (Lyrics).mp3">
               Adie - Tahanan
             </option>
@@ -1378,12 +1495,29 @@
             <option value="audios/Tahanan (c) El Manu [Official Audio].mp3">
               El Manu - Tahanan
             </option>
-            <option value="none">No music</option>
           </select>
         </div>
 
         <button class="gate-btn" onclick="unlockGate()">Enter</button>
-        <div class="gate-error" id="gateError">&nbsp;</div>
+      </div>
+    </div>
+
+    <!-- Gate Validation Alert Popup Modal -->
+    <div class="gate-popup-overlay" id="gatePopupOverlay" role="dialog" aria-modal="true" aria-labelledby="gatePopupTitle">
+      <div class="gate-popup-backdrop" onclick="closeGatePopup()"></div>
+      <div class="gate-popup-card">
+        <div class="gate-popup-icon-wrap" id="gatePopupIcon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            <circle cx="12" cy="16" r="1.5"></circle>
+          </svg>
+        </div>
+        <h3 class="gate-popup-title" id="gatePopupTitle">Incorrect Date</h3>
+        <p class="gate-popup-message" id="gatePopupMessage">That's not the day you said yes... please try again!</p>
+        <button class="gate-popup-btn" id="gatePopupBtn" onclick="closeGatePopup()">
+          Try Again
+        </button>
       </div>
     </div>
 
@@ -1396,17 +1530,33 @@
         <div class="music-controls-title">Now Playing</div>
         <div class="music-now-playing" id="nowPlaying">No music</div>
 
-        <!-- Play / Pause buttons -->
+        <!-- Playback control buttons -->
         <div class="music-btn-row">
           <button
             class="music-btn"
-            onclick="musicVolumeChange(-0.1)"
-            title="Volume Down"
-            aria-label="Volume Down"
+            onclick="toggleShuffle()"
+            id="btnShuffle"
+            title="Shuffle All Songs (Loop)"
+            aria-label="Shuffle All Songs (Loop)"
           >
             <svg class="w-4 h-4 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="20" x2="21" y2="3"></line>
+              <polyline points="21 16 21 21 16 21"></polyline>
+              <line x1="15" y1="15" x2="21" y2="21"></line>
+              <line x1="4" y1="4" x2="9" y2="9"></line>
+            </svg>
+          </button>
+          <button
+            class="music-btn"
+            onclick="playPrevTrack()"
+            id="btnPrev"
+            title="Previous Track"
+            aria-label="Previous Track"
+          >
+            <svg class="w-4 h-4 inline-block" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="19 20 9 12 19 4 19 20"></polygon>
+              <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line>
             </svg>
           </button>
           <button
@@ -1434,28 +1584,68 @@
           </button>
           <button
             class="music-btn"
-            onclick="musicVolumeChange(0.1)"
-            title="Volume Up"
-            aria-label="Volume Up"
+            onclick="playNextTrack()"
+            id="btnNext"
+            title="Next Track"
+            aria-label="Next Track"
           >
-            <svg class="w-4 h-4 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="w-4 h-4 inline-block" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 4 15 12 5 20 5 4"></polygon>
+              <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line>
+            </svg>
+          </button>
+          <button
+            class="music-btn"
+            onclick="toggleMute()"
+            id="btnMute"
+            title="Mute / Unmute"
+            aria-label="Mute or Unmute"
+          >
+            <svg id="iconUnmuted" class="w-4 h-4 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <svg id="iconMuted" class="w-4 h-4 hidden inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
             </svg>
           </button>
         </div>
 
         <!-- Volume bar -->
         <div class="music-volume-row">
-          <span style="font-size: 0.7rem; color: #b76e79; font-weight: 600"
-            >Vol</span
+          <button
+            class="music-btn"
+            style="width: 28px; height: 28px; border: none; background: transparent; padding: 0;"
+            onclick="musicVolumeChange(-0.1)"
+            title="Volume Down"
+            aria-label="Volume Down"
           >
-          <div class="music-volume-bar">
+            <svg class="w-3.5 h-3.5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+          <div class="music-volume-bar" onclick="seekVolume(event)" style="cursor: pointer;" title="Click to adjust volume">
             <div class="music-volume-fill" id="volumeFill"></div>
           </div>
+          <button
+            class="music-btn"
+            style="width: 28px; height: 28px; border: none; background: transparent; padding: 0;"
+            onclick="musicVolumeChange(0.1)"
+            title="Volume Up"
+            aria-label="Volume Up"
+          >
+            <svg class="w-3.5 h-3.5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+          </button>
           <span
-            style="font-size: 0.7rem; color: #b76e79; font-weight: 600"
+            style="font-size: 0.7rem; color: #b76e79; font-weight: 600; min-width: 32px; text-align: right;"
             id="volumeLabel"
             >30%</span
           >
@@ -1468,6 +1658,8 @@
           onchange="changeSong(this.value)"
         >
           <option value="" disabled selected>Change song...</option>
+          <option value="shuffle">Shuffle all songs (Loop)</option>
+          <option value="none">No music (Mute)</option>
           <option value="audios/Adie - Tahanan (Lyrics).mp3">
             Adie - Tahanan
           </option>
@@ -1504,7 +1696,6 @@
           <option value="audios/Tahanan (c) El Manu [Official Audio].mp3">
             El Manu - Tahanan
           </option>
-          <option value="none">No music</option>
         </select>
       </div>
       <button
@@ -1651,64 +1842,66 @@
     </header>
 
     <!-- Category Tabs -->
-    <section class="relative z-10 ui-fade max-w-2xl mx-auto px-4 pt-28">
+    <section class="relative z-10 ui-fade max-w-2xl mx-auto px-3 sm:px-4 pt-20 sm:pt-28">
       <div
-        class="flex justify-center flex-wrap gap-3 sm:gap-4"
+        class="grid grid-cols-3 gap-1.5 sm:flex sm:justify-center sm:gap-4 max-w-md sm:max-w-none mx-auto"
         id="categoryTabs"
       >
         <button
-          class="category-tab active font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          class="category-tab active font-body font-semibold text-xs sm:text-base px-2 sm:px-8 py-2.5 sm:py-3 rounded-full transition-all duration-300 shadow-md flex items-center justify-center text-center truncate"
           data-category="letters"
           onclick="switchCategory('letters')"
         >
           Letters
         </button>
         <button
-          class="category-tab font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          class="category-tab font-body font-semibold text-xs sm:text-base px-2 sm:px-8 py-2.5 sm:py-3 rounded-full transition-all duration-300 shadow-md flex items-center justify-center text-center truncate"
           data-category="bucketlist"
           onclick="switchCategory('bucketlist')"
         >
-          Our Love Bucketlist & Checklist
+          <span class="sm:hidden">Bucketlist</span>
+          <span class="hidden sm:inline">Our Love Bucketlist & Checklist</span>
         </button>
         <button
-          class="category-tab font-body font-semibold text-sm sm:text-base px-5 sm:px-8 py-3 rounded-full transition-all duration-300 shadow-md"
+          class="category-tab font-body font-semibold text-xs sm:text-base px-2 sm:px-8 py-2.5 sm:py-3 rounded-full transition-all duration-300 shadow-md flex items-center justify-center text-center truncate"
           data-category="gallery"
           onclick="switchCategory('gallery')"
         >
-          Our Gallery
+          <span class="sm:hidden">Gallery</span>
+          <span class="hidden sm:inline">Our Gallery</span>
         </button>
       </div>
     </section>
 
     <!-- Folders Section -->
-    <section class="relative z-10 ui-fade max-w-2xl mx-auto px-4 pb-32 pt-8">
+    <section class="relative z-10 ui-fade max-w-2xl mx-auto px-3 sm:px-4 pb-32 pt-4 sm:pt-8">
       <!-- Letters Group (contains sub-tabs) -->
       <div class="folder-group" id="group-letters">
-        <!-- Sub-tab bar -->
-        <div class="flex justify-center flex-wrap gap-2 mb-6">
+        <!-- Sub-tab bar: balanced 2x2 grid on mobile, flex row on desktop -->
+        <div class="grid grid-cols-2 gap-2 sm:flex sm:justify-center sm:flex-wrap sm:gap-2 mb-6 max-w-sm sm:max-w-none mx-auto">
           <button
-            class="sub-tab active font-body"
+            class="sub-tab active font-body text-center flex items-center justify-center py-2.5 px-3 sm:py-2 sm:px-4 text-xs font-semibold"
             data-sub="monthsary"
             onclick="switchSubCategory('monthsary')"
           >
             Monthsary
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body text-center flex items-center justify-center py-2.5 px-3 sm:py-2 sm:px-4 text-xs font-semibold"
             data-sub="anniversary"
             onclick="switchSubCategory('anniversary')"
           >
             Anniversary
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body text-center flex items-center justify-center py-2.5 px-3 sm:py-2 sm:px-4 text-xs font-semibold"
             data-sub="girlfriends"
             onclick="switchSubCategory('girlfriends')"
           >
             Girlfriends Day
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body text-center flex items-center justify-center py-2.5 px-3 sm:py-2 sm:px-4 text-xs font-semibold"
             data-sub="other"
             onclick="switchSubCategory('other')"
           >
@@ -2819,52 +3012,52 @@
 
       <!-- Gallery Group (hidden by default) -->
       <div class="folder-group hidden" id="group-gallery">
-        <!-- Gallery sub-tab bar -->
-        <div class="flex justify-center flex-wrap gap-2 mb-6">
+        <!-- Gallery sub-tab bar: smooth horizontal scroll on mobile, flex on desktop -->
+        <div class="flex overflow-x-auto no-scrollbar flex-nowrap sm:flex-wrap sm:justify-center gap-2 mb-6 px-1 py-1 max-w-full">
           <button
-            class="sub-tab active font-body"
+            class="sub-tab active font-body whitespace-nowrap flex-shrink-0"
             data-gallerysub="gal-1st"
             onclick="switchGallerySub('gal-1st')"
           >
             1st Image Together
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body whitespace-nowrap flex-shrink-0"
             data-gallerysub="gal-bataan"
             onclick="switchGallerySub('gal-bataan')"
           >
             Bataan
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body whitespace-nowrap flex-shrink-0"
             data-gallerysub="gal-manaoag"
             onclick="switchGallerySub('gal-manaoag')"
           >
             Manaoag
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body whitespace-nowrap flex-shrink-0"
             data-gallerysub="gal-tarlac"
             onclick="switchGallerySub('gal-tarlac')"
           >
             Tarlac
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body whitespace-nowrap flex-shrink-0"
             data-gallerysub="gal-videocall"
             onclick="switchGallerySub('gal-videocall')"
           >
             Video Call
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body whitespace-nowrap flex-shrink-0"
             data-gallerysub="gal-watchtogether"
             onclick="switchGallerySub('gal-watchtogether')"
           >
             Watch Together
           </button>
           <button
-            class="sub-tab font-body"
+            class="sub-tab font-body whitespace-nowrap flex-shrink-0"
             data-gallerysub="gal-edits"
             onclick="switchGallerySub('gal-edits')"
           >
@@ -4178,12 +4371,247 @@
     <script>
       // Security gate PIN / date validation enabled
       var devBypassGate = false;
+      var gatePopupTargetId = null;
+
+      // Gate Alert Modal: Show popup for invalid date/PIN or missing music
+      function showGatePopup(opts) {
+        var overlay = document.getElementById("gatePopupOverlay");
+        var titleEl = document.getElementById("gatePopupTitle");
+        var msgEl = document.getElementById("gatePopupMessage");
+        var btnEl = document.getElementById("gatePopupBtn");
+        var iconEl = document.getElementById("gatePopupIcon");
+
+        titleEl.textContent = opts.title || "Notice";
+        msgEl.textContent = opts.message || "";
+        btnEl.textContent = opts.btnText || "Okay";
+        gatePopupTargetId = opts.targetId || null;
+
+        if (opts.type === "music") {
+          iconEl.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M9 18V5l12-2v13"></path>' +
+            '<circle cx="6" cy="18" r="3"></circle>' +
+            '<circle cx="18" cy="16" r="3"></circle>' +
+            '</svg>';
+        } else {
+          // PIN / date lock icon
+          iconEl.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>' +
+            '<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>' +
+            '<circle cx="12" cy="16" r="1.5"></circle>' +
+            '</svg>';
+        }
+
+        if (opts.targetId) {
+          var targetEl = document.getElementById(opts.targetId);
+          if (targetEl) {
+            targetEl.style.borderColor = "#ff6b6b";
+            targetEl.classList.remove("gate-shake");
+            void targetEl.offsetWidth; // trigger reflow
+            targetEl.classList.add("gate-shake");
+          }
+        }
+
+        overlay.classList.add("open");
+        btnEl.focus();
+      }
+
+      function closeGatePopup() {
+        var overlay = document.getElementById("gatePopupOverlay");
+        if (!overlay) return;
+        overlay.classList.remove("open");
+
+        if (gatePopupTargetId) {
+          var targetEl = document.getElementById(gatePopupTargetId);
+          if (targetEl) {
+            targetEl.focus();
+            setTimeout(function () {
+              targetEl.style.borderColor = "rgba(255, 255, 255, 0.4)";
+              targetEl.classList.remove("gate-shake");
+            }, 1200);
+          }
+          gatePopupTargetId = null;
+        }
+      }
+
+      // Close gate popup on backdrop or Escape/Enter key
+      document.addEventListener("keydown", function (e) {
+        var popup = document.getElementById("gatePopupOverlay");
+        if (popup && popup.classList.contains("open")) {
+          if (e.key === "Escape" || e.key === "Enter") {
+            e.preventDefault();
+            e.stopPropagation();
+            closeGatePopup();
+          }
+        }
+      });
+
+      // Master playlist of all 10 songs
+      var masterPlaylist = [
+        { title: "Adie - Tahanan", src: "audios/Adie - Tahanan (Lyrics).mp3" },
+        { title: "Amiel Sol - Sa Bawat Sandali", src: "audios/Amiel Sol - Sa Bawat Sandali (Lyrics).mp3" },
+        { title: "Be With You", src: "audios/Be With You.mp3" },
+        { title: "December Avenue - Saksi Ang Langit", src: "audios/December Avenue - Saksi Ang Langit (Lyrics).mp3" },
+        { title: "El Manu - Hindi Ako Mawawala", src: "audios/Hindi Ako Mawawala (c) El Manu (Official Lyric Video).mp3" },
+        { title: "Maki - Kahel Na Langit", src: "audios/Kahel Na Langit - Maki (Lyrics).mp3" },
+        { title: "Amiel Sol - Nahanap Kita", src: "audios/Nahanap Kita - Amiel Sol (Official Lyric Video).mp3" },
+        { title: "Rob Deniel - Sinta", src: "audios/Rob Deniel - Sinta lyrics.mp3" },
+        { title: "Rob Deniel - Simoy", src: "audios/Simoy - Rob Deniel  100 Awit Para Kay Stella (Official Lyric Video).mp3" },
+        { title: "El Manu - Tahanan", src: "audios/Tahanan (c) El Manu [Official Audio].mp3" }
+      ];
+
+      var isShuffleMode = false;
+      var isMuted = false;
+      var currentVolume = 0.3;
+      var shuffleQueue = [];
+      var shuffleIndex = -1;
+
+      // Fisher-Yates array shuffle algorithm
+      function shuffleArray(array) {
+        var arr = array.slice();
+        for (var i = arr.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+        }
+        return arr;
+      }
+
+      function updateMuteUI(muted) {
+        var unmutedIcon = document.getElementById("iconUnmuted");
+        var mutedIcon = document.getElementById("iconMuted");
+        var muteBtn = document.getElementById("btnMute");
+        if (muted) {
+          if (unmutedIcon) unmutedIcon.classList.add("hidden");
+          if (mutedIcon) mutedIcon.classList.remove("hidden");
+          if (muteBtn) muteBtn.classList.add("active-play");
+          document.getElementById("volumeFill").style.width = "0%";
+          document.getElementById("volumeLabel").textContent = "0% (Muted)";
+        } else {
+          if (unmutedIcon) unmutedIcon.classList.remove("hidden");
+          if (mutedIcon) mutedIcon.classList.add("hidden");
+          if (muteBtn) muteBtn.classList.remove("active-play");
+          var pct = Math.round(currentVolume * 100);
+          document.getElementById("volumeFill").style.width = pct + "%";
+          document.getElementById("volumeLabel").textContent = pct + "%";
+        }
+      }
+
+      function updateShuffleUI(active) {
+        var btn = document.getElementById("btnShuffle");
+        if (btn) {
+          if (active) {
+            btn.classList.add("active-play");
+          } else {
+            btn.classList.remove("active-play");
+          }
+        }
+      }
+
+      function startShufflePlay() {
+        isShuffleMode = true;
+        updateShuffleUI(true);
+        var bgAudio = document.getElementById("bgAudio");
+        bgAudio.loop = false; // Allow 'ended' event to fire so next song in loop plays
+        shuffleQueue = shuffleArray(masterPlaylist);
+        shuffleIndex = 0;
+        playTrackAtCurrentIndex();
+      }
+
+      function playTrackAtCurrentIndex() {
+        if (!shuffleQueue.length) {
+          shuffleQueue = shuffleArray(masterPlaylist);
+        }
+        if (shuffleIndex < 0 || shuffleIndex >= shuffleQueue.length) {
+          shuffleQueue = shuffleArray(masterPlaylist);
+          shuffleIndex = 0;
+        }
+        var track = shuffleQueue[shuffleIndex];
+        var bgAudio = document.getElementById("bgAudio");
+        bgAudio.src = track.src;
+        if (isMuted) {
+          bgAudio.muted = true;
+          bgAudio.volume = 0;
+        } else {
+          bgAudio.muted = false;
+          bgAudio.volume = currentVolume;
+        }
+        bgAudio.play().catch(function () {});
+        document.getElementById("nowPlaying").textContent =
+          track.title + (isShuffleMode ? " (Shuffle)" : "");
+        document.getElementById("btnPause").classList.add("active-play");
+        document.getElementById("btnPlay").classList.remove("active-play");
+      }
+
+      function playNextTrack() {
+        if (!isShuffleMode) {
+          startShufflePlay();
+          return;
+        }
+        shuffleIndex++;
+        if (shuffleIndex >= shuffleQueue.length) {
+          // Infinite loop: reshuffle and continue from the beginning
+          shuffleQueue = shuffleArray(masterPlaylist);
+          shuffleIndex = 0;
+        }
+        playTrackAtCurrentIndex();
+      }
+
+      function playPrevTrack() {
+        if (!isShuffleMode) {
+          startShufflePlay();
+          return;
+        }
+        shuffleIndex--;
+        if (shuffleIndex < 0) {
+          shuffleIndex = shuffleQueue.length - 1;
+        }
+        playTrackAtCurrentIndex();
+      }
+
+      function toggleShuffle() {
+        var bgAudio = document.getElementById("bgAudio");
+        if (isShuffleMode) {
+          // Turn off shuffle mode, switch back to single song repeat
+          isShuffleMode = false;
+          updateShuffleUI(false);
+          bgAudio.loop = true;
+          if (shuffleQueue[shuffleIndex]) {
+            document.getElementById("nowPlaying").textContent =
+              shuffleQueue[shuffleIndex].title;
+          }
+        } else {
+          startShufflePlay();
+        }
+      }
+
+      function toggleMute() {
+        var bgAudio = document.getElementById("bgAudio");
+        if (!isMuted) {
+          if (bgAudio.volume > 0) currentVolume = bgAudio.volume;
+          isMuted = true;
+          bgAudio.muted = true;
+          bgAudio.volume = 0;
+          updateMuteUI(true);
+        } else {
+          isMuted = false;
+          bgAudio.muted = false;
+          bgAudio.volume = currentVolume || 0.3;
+          updateMuteUI(false);
+          if (bgAudio.src && bgAudio.paused) {
+            bgAudio.play().catch(function () {});
+            document.getElementById("btnPause").classList.add("active-play");
+            document.getElementById("btnPlay").classList.remove("active-play");
+          }
+        }
+      }
 
       // Security gate - unlock with correct answer
       function unlockGate() {
         var answer = document.getElementById("gateAnswer").value;
         var audioSelect = document.getElementById("gateAudio").value;
-        var errorEl = document.getElementById("gateError");
 
         if (!devBypassGate) {
           // Validate answer - correct date is July 15, 2025
@@ -4198,52 +4626,77 @@
           );
 
           if (!isValidDate) {
-            errorEl.textContent = "That's not the right date... try again!";
-            document.getElementById("gateAnswer").style.borderColor = "#c0392b";
-            setTimeout(function () {
-              document.getElementById("gateAnswer").style.borderColor = "#f9e4e4";
-            }, 2000);
+            showGatePopup({
+              type: "pin",
+              title: "Incorrect Date",
+              message: "That's not the day you said yes... please try again, my love!",
+              btnText: "Try Again",
+              targetId: "gateAnswer",
+            });
             return;
           }
         }
 
-        if (!audioSelect) {
-          audioSelect = "none";
+        // Validate music selection: MUST make an explicit choice
+        if (!audioSelect || audioSelect === "") {
+          showGatePopup({
+            type: "music",
+            title: "No Music Selected",
+            message: "Please choose background music or select 'No music' before unlocking our memories!",
+            btnText: "Choose Option",
+            targetId: "gateAudio",
+          });
+          return;
         }
 
-        // Start background audio if selected
-        if (audioSelect && audioSelect !== "none") {
-          var bgAudio = document.getElementById("bgAudio");
+        var bgAudio = document.getElementById("bgAudio");
+
+        if (audioSelect === "none") {
+          // User chose "No music (Mute)"
+          isMuted = true;
+          isShuffleMode = false;
+          updateShuffleUI(false);
+          updateMuteUI(true);
+          bgAudio.pause();
+          bgAudio.src = "";
+          bgAudio.muted = true;
+          bgAudio.volume = 0;
+          document.getElementById("nowPlaying").textContent = "No music (Muted)";
+          document.getElementById("btnPlay").classList.remove("active-play");
+          document.getElementById("btnPause").classList.remove("active-play");
+        } else if (audioSelect === "shuffle") {
+          // User chose "Shuffle all songs (Loop)"
+          isMuted = false;
+          currentVolume = 0.3;
+          updateMuteUI(false);
+          startShufflePlay();
+        } else {
+          // Specific single song selected
+          isMuted = false;
+          isShuffleMode = false;
+          updateShuffleUI(false);
+          updateMuteUI(false);
+          bgAudio.loop = true;
           bgAudio.src = audioSelect;
+          bgAudio.muted = false;
           bgAudio.volume = 0.3;
-          bgAudio.play().catch(function () {
-            // Autoplay might be blocked, that's ok
-          });
-          // Update now playing text
+          currentVolume = 0.3;
+          bgAudio.play().catch(function () {});
+
           var selectedOption =
             document.getElementById("gateAudio").options[
               document.getElementById("gateAudio").selectedIndex
             ];
           document.getElementById("nowPlaying").textContent =
-            selectedOption.textContent;
-          // Set play button states
+            selectedOption ? selectedOption.textContent.trim() : "Music Playing";
           document.getElementById("btnPause").classList.add("active-play");
           document.getElementById("btnPlay").classList.remove("active-play");
-        } else {
-          document.getElementById("nowPlaying").textContent = "No music";
-          document.getElementById("btnPlay").classList.remove("active-play");
-          document.getElementById("btnPause").classList.remove("active-play");
         }
-
-        // Update volume bar
-        document.getElementById("volumeFill").style.width = "30%";
-        document.getElementById("volumeLabel").textContent = "30%";
 
         // Show music panel
         document.getElementById("musicPanel").classList.add("visible");
 
         // Hide gate overlay
-        errorEl.textContent = "";
         document.getElementById("gateOverlay").classList.add("hidden");
         document.body.classList.remove("gate-open");
         document.body.classList.add("unlocked-bg");
@@ -4262,6 +4715,13 @@
         var bgAudio = document.getElementById("bgAudio");
         bgAudio.pause();
         bgAudio.src = "";
+        isShuffleMode = false;
+        isMuted = false;
+        shuffleIndex = -1;
+        shuffleQueue = [];
+        updateShuffleUI(false);
+        updateMuteUI(false);
+
         document.getElementById("musicPanel").classList.remove("visible");
         document.getElementById("musicControls").classList.remove("open");
         document.getElementById("nowPlaying").textContent = "No music";
@@ -4271,9 +4731,14 @@
         document.getElementById("gateAudio").selectedIndex = 0;
       }
 
-      // Allow Enter key to submit
+      // Allow Enter key to submit on both inputs
       document
         .getElementById("gateAnswer")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Enter") unlockGate();
+        });
+      document
+        .getElementById("gateAudio")
         .addEventListener("keydown", function (e) {
           if (e.key === "Enter") unlockGate();
         });
@@ -4336,10 +4801,15 @@
       // Play music
       function musicPlay() {
         var bgAudio = document.getElementById("bgAudio");
+        if (isMuted) {
+          toggleMute();
+        }
         if (bgAudio.src) {
           bgAudio.play().catch(function () {});
           document.getElementById("btnPause").classList.add("active-play");
           document.getElementById("btnPlay").classList.remove("active-play");
+        } else {
+          startShufflePlay();
         }
       }
 
@@ -4354,35 +4824,92 @@
       // Volume up/down
       function musicVolumeChange(delta) {
         var bgAudio = document.getElementById("bgAudio");
-        var newVol = Math.min(1, Math.max(0, bgAudio.volume + delta));
-        bgAudio.volume = Math.round(newVol * 10) / 10;
-        var pct = Math.round(bgAudio.volume * 100);
-        document.getElementById("volumeFill").style.width = pct + "%";
-        document.getElementById("volumeLabel").textContent = pct + "%";
+        if (isMuted) {
+          isMuted = false;
+          bgAudio.muted = false;
+        }
+        var newVol = Math.min(1, Math.max(0, currentVolume + delta));
+        currentVolume = Math.round(newVol * 10) / 10;
+        bgAudio.volume = currentVolume;
+        updateMuteUI(false);
+      }
+
+      // Click to scrub volume bar
+      function seekVolume(e) {
+        var bar = e.currentTarget;
+        var rect = bar.getBoundingClientRect();
+        var clickX = e.clientX - rect.left;
+        var pct = Math.max(0, Math.min(1, clickX / rect.width));
+        currentVolume = Math.round(pct * 100) / 100;
+        var bgAudio = document.getElementById("bgAudio");
+        if (isMuted) {
+          isMuted = false;
+          bgAudio.muted = false;
+        }
+        bgAudio.volume = currentVolume;
+        updateMuteUI(false);
       }
 
       // Change song
       function changeSong(value) {
         var bgAudio = document.getElementById("bgAudio");
+        var sel = document.getElementById("changeSongSelect");
+
         if (value === "none") {
+          isShuffleMode = false;
+          updateShuffleUI(false);
+          isMuted = true;
           bgAudio.pause();
           bgAudio.src = "";
-          document.getElementById("nowPlaying").textContent = "No music";
+          bgAudio.muted = true;
+          bgAudio.volume = 0;
+          updateMuteUI(true);
+          document.getElementById("nowPlaying").textContent = "No music (Muted)";
           document.getElementById("btnPlay").classList.remove("active-play");
           document.getElementById("btnPause").classList.remove("active-play");
+          sel.selectedIndex = 0;
           return;
         }
+
+        if (value === "shuffle") {
+          isMuted = false;
+          updateMuteUI(false);
+          startShufflePlay();
+          sel.selectedIndex = 0;
+          return;
+        }
+
+        // Specific track
+        isShuffleMode = false;
+        updateShuffleUI(false);
+        bgAudio.loop = true;
         bgAudio.src = value;
+        if (isMuted) {
+          isMuted = false;
+          updateMuteUI(false);
+        }
+        bgAudio.muted = false;
+        bgAudio.volume = currentVolume || 0.3;
         bgAudio.play().catch(function () {});
-        // Get display name from selected option
-        var sel = document.getElementById("changeSongSelect");
+
         document.getElementById("nowPlaying").textContent =
-          sel.options[sel.selectedIndex].textContent;
+          sel.options[sel.selectedIndex].textContent.trim();
         document.getElementById("btnPause").classList.add("active-play");
         document.getElementById("btnPlay").classList.remove("active-play");
-        // Reset select to placeholder
         sel.selectedIndex = 0;
       }
+
+      // Auto advance to next song in loop when current track ends
+      document.getElementById("bgAudio").addEventListener("ended", function () {
+        if (isShuffleMode) {
+          shuffleIndex++;
+          if (shuffleIndex >= shuffleQueue.length) {
+            shuffleQueue = shuffleArray(masterPlaylist);
+            shuffleIndex = 0;
+          }
+          playTrackAtCurrentIndex();
+        }
+      });
 
       // Floating vector hearts background (SVG icons, no emojis)
       (function createHearts() {
