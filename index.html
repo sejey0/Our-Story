@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="gate-open">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,11 +56,14 @@
         box-sizing: border-box;
       }
       html {
-        overflow-y: scroll;
+        overflow-y: auto;
       }
       html.gate-open,
-      body.gate-open {
-        overflow: hidden;
+      body.gate-open,
+      html:has(body.gate-open) {
+        overflow: hidden !important;
+        height: 100% !important;
+        overscroll-behavior: none !important;
       }
 
       body {
@@ -854,149 +857,381 @@
         transform: translateY(-1px);
       }
 
-      /* Security Gate Overlay */
+      /* Security Gate Overlay & Cinematic Backdrop */
       .gate-overlay {
         position: fixed;
         inset: 0;
         z-index: 9999;
-        background-color: #1a0a2e;
-        background-image: url("images/Bataan/2025/IMG_20251015_170043_667 (1) (1).jpg");
+        background-color: #120520;
+        background-image:
+          linear-gradient(145deg, rgba(18, 5, 32, 0.78) 0%, rgba(65, 20, 38, 0.6) 45%, rgba(18, 5, 32, 0.82) 100%),
+          url("images/Bataan/2025/IMG_20251015_170043_667 (1) (1).jpg");
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 16px;
+        overflow: hidden !important;
+        overscroll-behavior: none !important;
+        touch-action: none;
         transition:
           opacity 0.6s ease,
           visibility 0.6s ease;
+      }
+      .gate-overlay,
+      .gate-overlay * {
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+      .gate-overlay::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+      }
+      .gate-overlay::before {
+        content: "";
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(232, 160, 160, 0.22) 0%, rgba(183, 110, 121, 0.06) 50%, transparent 70%);
+        top: 10%;
+        left: 15%;
+        filter: blur(60px);
+        pointer-events: none;
+        animation: ambientBreathe 10s ease-in-out infinite alternate;
+      }
+      .gate-overlay::after {
+        content: "";
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(183, 110, 121, 0.18) 0%, rgba(114, 47, 55, 0.06) 60%, transparent 70%);
+        bottom: 10%;
+        right: 15%;
+        filter: blur(70px);
+        pointer-events: none;
+        animation: ambientBreathe 12s ease-in-out infinite alternate-reverse;
+      }
+      @keyframes ambientBreathe {
+        0% { transform: scale(0.95) translate(0, 0); opacity: 0.3; }
+        100% { transform: scale(1.1) translate(15px, -15px); opacity: 0.55; }
       }
       .gate-overlay.hidden {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
       }
+
+      /* Refined Frosted Glass Card */
       .gate-card {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 24px;
-        padding: 40px 32px;
-        max-width: 420px;
-        width: 90%;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(28px) saturate(140%);
+        -webkit-backdrop-filter: blur(28px) saturate(140%);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 26px;
+        padding: 28px 24px 26px;
+        max-width: 400px;
+        width: 100%;
+        max-height: calc(100vh - 32px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 35px rgba(183, 110, 121, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.4);
         text-align: center;
-        animation: gateSlideUp 0.6s ease;
+        position: relative;
+        z-index: 2;
+        animation: gateSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       }
       @keyframes gateSlideUp {
         from {
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(24px) scale(0.98);
         }
         to {
           opacity: 1;
-          transform: translateY(0);
+          transform: translateY(0) scale(1);
         }
       }
-      .gate-card h2 {
-        font-family: "Great Vibes", cursive;
-        font-size: 2.5rem;
-        color: white;
-        margin-bottom: 8px;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      }
-      .gate-card p {
-        font-family: "Quicksand", sans-serif;
-        color: rgba(255, 255, 255, 0.85);
-        font-size: 0.9rem;
-        margin-bottom: 28px;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-      }
-      .gate-label {
-        font-family: "Quicksand", sans-serif;
-        font-weight: 600;
-        font-size: 0.85rem;
-        color: white;
-        display: block;
-        text-align: left;
-        margin-bottom: 8px;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-      }
-      .gate-input {
-        width: 100%;
-        padding: 12px 16px;
-        border: 2px solid rgba(255, 255, 255, 0.4);
-        border-radius: 12px;
-        font-family: "Quicksand", sans-serif;
-        font-size: 0.95rem;
-        color: white;
-        outline: none;
-        transition: border-color 0.3s ease;
-        background: rgba(255, 255, 255, 0.2);
-      }
-      .gate-input:focus {
-        border-color: white;
-      }
-      .gate-select {
-        width: 100%;
-        padding: 12px 16px;
-        border: 2px solid rgba(255, 255, 255, 0.4);
-        border-radius: 12px;
-        font-family: "Quicksand", sans-serif;
-        font-size: 0.95rem;
-        color: white;
-        outline: none;
-        transition: border-color 0.3s ease;
-        background: rgba(255, 255, 255, 0.2);
-        cursor: pointer;
-        appearance: none;
-        -webkit-appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 16px center;
-      }
-      .gate-select option {
-        background: #1a0a2e;
-        color: white;
-      }
-      .gate-select:focus {
-        border-color: white;
-      }
-      .gate-btn {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #b76e79, #e8a0a0);
-        color: white;
-        font-family: "Quicksand", sans-serif;
-        font-weight: 700;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(183, 110, 121, 0.35);
-        margin-top: 24px;
-      }
-      .gate-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(183, 110, 121, 0.45);
-      }
-      .gate-btn:active {
-        transform: translateY(0);
-      }
-      .gate-field {
-        margin-bottom: 20px;
-      }
-      .gate-icon {
+
+      /* Heart Icon Halo with Subtle Breath */
+      .gate-icon-halo {
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 12px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.06));
+        border: 1.5px solid rgba(255, 255, 255, 0.38);
+        box-shadow: 0 8px 25px rgba(183, 110, 121, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.55);
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 14px;
-        color: white;
-        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        animation: haloPulse 3.5s ease-in-out infinite;
+      }
+      @keyframes haloPulse {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 8px 25px rgba(183, 110, 121, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.55);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 12px 32px rgba(232, 160, 160, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+        }
+      }
+      .gate-icon {
+        color: #ff9eaf;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: drop-shadow(0 2px 8px rgba(183, 110, 121, 0.5));
       }
       .gate-icon svg {
-        width: 44px;
-        height: 44px;
+        width: 32px;
+        height: 32px;
+      }
+
+      /* Title & Subtitle */
+      .gate-title {
+        font-family: "Great Vibes", cursive;
+        font-size: 2.75rem;
+        line-height: 1.15;
+        color: white;
+        margin-bottom: 6px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        background: linear-gradient(135deg, #ffffff 40%, #ffd4db 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .gate-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin: 6px auto 10px;
+        width: 140px;
+        opacity: 0.75;
+      }
+      .gate-divider-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      }
+      .gate-divider-diamond {
+        width: 8px;
+        height: 8px;
+        color: #ffb8c4;
+        flex-shrink: 0;
+      }
+      .gate-subtitle {
+        font-family: "Quicksand", sans-serif;
+        color: rgba(255, 245, 245, 0.88);
+        font-size: 0.88rem;
+        font-weight: 500;
+        margin-bottom: 24px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        letter-spacing: 0.2px;
+      }
+
+      /* Input Fields with Interior Icons */
+      .gate-field {
+        margin-bottom: 18px;
+        text-align: left;
+      }
+      .gate-label {
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.95);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 7px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+        letter-spacing: 0.3px;
+      }
+      .gate-label-icon {
+        width: 14px;
+        height: 14px;
+        color: #ffb8c4;
+        flex-shrink: 0;
+      }
+      .gate-input-wrapper {
+        position: relative;
+        width: 100%;
+      }
+      .gate-input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 17px;
+        height: 17px;
+        color: rgba(255, 255, 255, 0.65);
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.25s ease, transform 0.25s ease;
+      }
+      .gate-input-icon svg {
+        width: 17px;
+        height: 17px;
+      }
+      .gate-input-wrapper:focus-within .gate-input-icon {
+        color: #ffd4db;
+        transform: translateY(-50%) scale(1.08);
+      }
+      .gate-input,
+      .gate-select {
+        width: 100%;
+        height: 48px;
+        padding: 0 16px 0 42px;
+        border: 1.5px solid rgba(255, 255, 255, 0.32);
+        border-radius: 14px;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: white;
+        outline: none;
+        transition: all 0.25s ease;
+        background: rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+        color-scheme: dark;
+      }
+      .gate-input:focus,
+      .gate-select:focus {
+        border-color: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.22);
+        box-shadow: 0 0 20px rgba(232, 160, 160, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+      }
+      .gate-select {
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        padding-right: 38px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+      }
+      .gate-select option {
+        background: #1e0b35;
+        color: white;
+        font-weight: 600;
+        padding: 8px;
+      }
+
+      /* Unlock Button with Smooth Glow Sweep */
+      .gate-btn {
+        width: 100%;
+        height: 50px;
+        padding: 0 24px;
+        border: none;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #b76e79 0%, #c97d88 50%, #e8a0a0 100%);
+        color: white;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+        font-size: 0.98rem;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 8px 24px rgba(183, 110, 121, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+        margin-top: 22px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .gate-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+        transition: left 0.6s ease;
+      }
+      .gate-btn:hover::before {
+        left: 100%;
+      }
+      .gate-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(183, 110, 121, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+      }
+      .gate-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 15px rgba(183, 110, 121, 0.4);
+      }
+      .gate-btn-content {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .gate-btn-arrow {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.2s ease;
+      }
+      .gate-btn:hover .gate-btn-arrow {
+        transform: translateX(4px);
+      }
+
+      @media (max-height: 640px) {
+        .gate-card {
+          padding: 16px 20px 16px;
+          border-radius: 20px;
+        }
+        .gate-icon-halo {
+          width: 44px;
+          height: 44px;
+          margin-bottom: 6px;
+        }
+        .gate-icon svg {
+          width: 24px;
+          height: 24px;
+        }
+        .gate-title {
+          font-size: 2.2rem;
+          margin-bottom: 2px;
+        }
+        .gate-divider {
+          margin: 3px auto 6px;
+        }
+        .gate-subtitle {
+          font-size: 0.8rem;
+          margin-bottom: 12px;
+        }
+        .gate-field {
+          margin-bottom: 10px;
+        }
+        .gate-label {
+          font-size: 0.78rem;
+          margin-bottom: 4px;
+        }
+        .gate-input,
+        .gate-select {
+          height: 40px;
+          font-size: 0.85rem;
+        }
+        .gate-btn {
+          height: 42px;
+          margin-top: 14px;
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .gate-card {
+          padding: 20px 16px 20px;
+        }
+        .gate-title {
+          font-size: 2.35rem;
+        }
       }
 
       /* Gate Validation Alert Popup Modal */
@@ -1436,69 +1671,122 @@
     <!-- Security Gate Overlay -->
     <div class="gate-overlay" id="gateOverlay">
       <div class="gate-card">
-        <div class="gate-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        <!-- Glowing Heart Halo -->
+        <div class="gate-icon-halo">
+          <div class="gate-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Cursive Title & Vector Diamond Divider -->
+        <h2 class="gate-title">Our Story</h2>
+        <div class="gate-divider">
+          <span class="gate-divider-line"></span>
+          <svg class="gate-divider-diamond" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0L9.8 6.2L16 8L9.8 9.8L8 16L6.2 9.8L0 8L6.2 6.2Z"/>
           </svg>
+          <span class="gate-divider-line"></span>
         </div>
-        <h2>Our Story</h2>
-        <p>Answer the question to unlock our memories</p>
+        <p class="gate-subtitle">Answer the question to unlock our memories</p>
 
+        <!-- Date Field with Calendar Icon -->
         <div class="gate-field">
-          <label class="gate-label" for="gateAnswer"
-            >The day you said yes?</label
-          >
-          <input type="date" class="gate-input" id="gateAnswer" />
+          <label class="gate-label" for="gateAnswer">
+            <svg class="gate-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>The day you said yes?</span>
+          </label>
+          <div class="gate-input-wrapper">
+            <div class="gate-input-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <input type="date" class="gate-input" id="gateAnswer" />
+          </div>
         </div>
 
+        <!-- Music Selection Field with Note Icon -->
         <div class="gate-field">
-          <label class="gate-label" for="gateAudio"
-            >Choose background music</label
-          >
-          <select class="gate-select" id="gateAudio">
-            <option value="" disabled selected>Select music...</option>
-            <option value="shuffle">Shuffle all songs (Loop)</option>
-            <option value="none">No music (Mute)</option>
-            <option value="audios/Adie - Tahanan (Lyrics).mp3">
-              Adie - Tahanan
-            </option>
-            <option value="audios/Amiel Sol - Sa Bawat Sandali (Lyrics).mp3">
-              Amiel Sol - Sa Bawat Sandali
-            </option>
-            <option value="audios/Be With You.mp3">Be With You</option>
-            <option
-              value="audios/December Avenue - Saksi Ang Langit (Lyrics).mp3"
-            >
-              December Avenue - Saksi Ang Langit
-            </option>
-            <option
-              value="audios/Hindi Ako Mawawala (c) El Manu (Official Lyric Video).mp3"
-            >
-              El Manu - Hindi Ako Mawawala
-            </option>
-            <option value="audios/Kahel Na Langit - Maki (Lyrics).mp3">
-              Maki - Kahel Na Langit
-            </option>
-            <option
-              value="audios/Nahanap Kita - Amiel Sol (Official Lyric Video).mp3"
-            >
-              Amiel Sol - Nahanap Kita
-            </option>
-            <option value="audios/Rob Deniel - Sinta lyrics.mp3">
-              Rob Deniel - Sinta
-            </option>
-            <option
-              value="audios/Simoy - Rob Deniel  100 Awit Para Kay Stella (Official Lyric Video).mp3"
-            >
-              Rob Deniel - Simoy
-            </option>
-            <option value="audios/Tahanan (c) El Manu [Official Audio].mp3">
-              El Manu - Tahanan
-            </option>
-          </select>
+          <label class="gate-label" for="gateAudio">
+            <svg class="gate-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            <span>Choose background music</span>
+          </label>
+          <div class="gate-input-wrapper">
+            <div class="gate-input-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+            </div>
+            <select class="gate-select" id="gateAudio">
+              <option value="" disabled selected>Select music...</option>
+              <option value="shuffle">Shuffle all songs (Loop)</option>
+              <option value="none">No music (Mute)</option>
+              <option value="audios/Adie - Tahanan (Lyrics).mp3">
+                Adie - Tahanan
+              </option>
+              <option value="audios/Amiel Sol - Sa Bawat Sandali (Lyrics).mp3">
+                Amiel Sol - Sa Bawat Sandali
+              </option>
+              <option value="audios/Be With You.mp3">Be With You</option>
+              <option
+                value="audios/December Avenue - Saksi Ang Langit (Lyrics).mp3"
+              >
+                December Avenue - Saksi Ang Langit
+              </option>
+              <option
+                value="audios/Hindi Ako Mawawala (c) El Manu (Official Lyric Video).mp3"
+              >
+                El Manu - Hindi Ako Mawawala
+              </option>
+              <option value="audios/Kahel Na Langit - Maki (Lyrics).mp3">
+                Maki - Kahel Na Langit
+              </option>
+              <option
+                value="audios/Nahanap Kita - Amiel Sol (Official Lyric Video).mp3"
+              >
+                Amiel Sol - Nahanap Kita
+              </option>
+              <option value="audios/Rob Deniel - Sinta lyrics.mp3">
+                Rob Deniel - Sinta
+              </option>
+              <option
+                value="audios/Simoy - Rob Deniel  100 Awit Para Kay Stella (Official Lyric Video).mp3"
+              >
+                Rob Deniel - Simoy
+              </option>
+              <option value="audios/Tahanan (c) El Manu [Official Audio].mp3">
+                El Manu - Tahanan
+              </option>
+            </select>
+          </div>
         </div>
 
-        <button class="gate-btn" onclick="unlockGate()">Enter</button>
+        <!-- Animated Enter Button -->
+        <button class="gate-btn" onclick="unlockGate()">
+          <span class="gate-btn-content">
+            <span>Unlock Memories</span>
+            <svg class="gate-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
 
@@ -1974,12 +2262,16 @@
                 <div
                   class="drawer-content bg-white/70 backdrop-blur-sm mx-2 rounded-b-xl border border-t-0 border-blush shadow-inner"
                 >
-                  <div class="p-5">
-                    <span
-                      class="inline-block bg-gray-300 text-gray-500 font-semibold text-sm px-6 py-2.5 rounded-full shadow-md cursor-not-allowed opacity-60"
+                  <div class="p-5" id="monthsary14-content">
+                    <a
+                      id="monthsary14-link"
+                      href="https://sejey0.github.io/14th-Monthsary/"
+                      class="btn-visit inline-block bg-gradient-to-r from-rosegold to-rose text-white font-semibold text-sm px-6 py-2.5 rounded-full shadow-md"
+                      target="_blank"
+                      rel="noopener"
                     >
-                      Coming Soon
-                    </span>
+                      Open Letter &rarr;
+                    </a>
                   </div>
                 </div>
               </div>
@@ -4698,6 +4990,7 @@
 
         // Hide gate overlay
         document.getElementById("gateOverlay").classList.add("hidden");
+        if (document.documentElement) document.documentElement.classList.remove("gate-open");
         document.body.classList.remove("gate-open");
         document.body.classList.add("unlocked-bg");
         document.getElementById("logoutContainer").classList.add("visible");
@@ -4706,6 +4999,7 @@
 
       function logout() {
         document.getElementById("gateOverlay").classList.remove("hidden");
+        if (document.documentElement) document.documentElement.classList.add("gate-open");
         document.body.classList.add("gate-open");
         document.body.classList.remove("unlocked-bg");
         document.getElementById("logoutContainer").classList.remove("visible");
